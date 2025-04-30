@@ -1,9 +1,11 @@
 from SlurmTres import TRESData, TRESItem
 from SlurmTime import TimeInfo
+from JobStep import JobStep
 from typing import Optional, List, Dict
+import json
 
 class SlurmJob:
-    def __init__(self, job_id, name, nodes, partition, qos, required_cpus, required_memory_per_cpu, time, tres=None):
+    def __init__(self, job_id, name, nodes, partition, qos, required_cpus, required_memory_per_cpu, time, steps:List[JobStep]):
         self.job_id = job_id
         self.name = name
         self.nodes = nodes
@@ -81,7 +83,7 @@ class SlurmJob:
 
     def __repr__(self) -> str:
         return (f"<Job id={self.job_id} name={self.name} partition={self.partition} "
-                f"nodes={self.nodes} priority={self.priority} required={self.required}>")
+                f"nodes={self.nodes}>")
 
 class Priority:
     def __init__(self, data: Dict):
@@ -117,3 +119,10 @@ class RequiredResources:
                 f"memory_per_cpu={self.memory_per_cpu} "
                 f"memory_per_node={self.memory_per_node} "
                 f"memory={self.memory}>")
+
+if __name__  == "__main__":
+    with open("sacct.json") as fh:
+        json_txt = fh.read()
+
+    job = SlurmJob.from_json(json.loads(json_txt))
+    print(job)
