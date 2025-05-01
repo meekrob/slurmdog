@@ -30,10 +30,7 @@ class ExitCode:
         )
 
 class JobStep:
-    def __init__(
-        self,
-        step_id: str,
-        pid: str,
+    def __init__(self, pid: str,
         CPU: dict,
         kill_request_user: str,
         reservation: dict,
@@ -47,36 +44,39 @@ class JobStep:
         exit_code: Optional[ExitCode] = None,
         raw: Optional[dict] = None
     ):
-        self.step_id = step_id
-        self.pid = pid
-        self.state = state
-        self.nodes = nodes
-        self.CPU = CPU
-        self.time = time
-        self.tres = tres
-        self.exit_code = exit_code
-        self.kill_request_user = kill_request_user
-        self.reservation = reservation
-        self.script = script
-        self.statistics = statistics
-        self.step = step or {}
-        self.raw = raw or {}
+
+      self.pid = pid
+      self.state = state
+      self.nodes = nodes
+      self.CPU = CPU
+      self.time = time
+      self.tres = tres
+      self.exit_code = exit_code
+      self.kill_request_user = kill_request_user
+      self.reservation = reservation
+      self.script = script
+      self.statistics = statistics
+      self.step = step or {}
+      self.raw = raw or {}
 
     @property
     def name(self) -> str:
         return self.step.get("name", None)
+    
+    @property
+    def step_id(self) -> dict:
+        return self.step.get("id", None)
 
     @classmethod
     def from_json(cls, data: Dict[str, Any]):
-
-        time_info = TimeInfo.from_json(data) if any(
-            k in data for k in ("start_time", "end_time", "elapsed")
+        time_data = data['time']
+        time_info = TimeInfo.from_json(time_data) if any(
+            k in time_data for k in ("start_time", "end_time", "elapsed")
         ) else None
 
         tres_data = TRESData.from_json(data["tres"]) if "tres" in data else None
 
         return cls(
-            step_id=data.get("step_id", ""),
             state=data.get("state", ""),
             time=time_info,
             tres=tres_data,

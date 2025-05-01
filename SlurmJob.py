@@ -5,16 +5,27 @@ from typing import Optional, List, Dict
 import json
 
 class SlurmJob:
-    def __init__(self, job_id, name, nodes, partition, qos, required_cpus, required_memory_per_cpu, time, steps:List[JobStep]):
+    def __init__(self, job_id, 
+                 name, 
+                 nodes, 
+                 partition, 
+                 qos, 
+                 required, 
+                 required_cpus, 
+                 required_memory_per_cpu, 
+                 time, 
+                 steps:List[JobStep]):
+    
         self.job_id = job_id
         self.name = name
         self.nodes = nodes
         self.partition = partition
         self.qos = qos
+        self.required = required
         self.required_cpus = required_cpus
         self.required_memory_per_cpu = required_memory_per_cpu  # in MiB
         self.time = time  # SlurmTime instance
-        self.tres = tres  # TRESData instance
+        self.steps = steps
 
     @classmethod
     def from_json(cls, data):
@@ -29,8 +40,15 @@ class SlurmJob:
         required_memory_per_cpu_info = required.get("memory_per_cpu", {})
         required_memory_per_cpu = required_memory_per_cpu_info.get("number", 0)
 
+        jobsteps_data = data["steps"]
+        steps = []
+        for jobstep_data in jobsteps_data:
+            jobstep = JobStep.from_json(jobstep_data)
+            steps.append(jobstep)
+        
+
         time_data = data.get("time", {})
-        time = SlurmTime.from_json(time_data) if time_data else None
+        time = TimeInfo.from_json(time_data) if time_data else None
 
         tres_data = data.get("tres", {})
         tres = TRESData.from_json(tres_data) if tres_data else None
@@ -44,7 +62,7 @@ class SlurmJob:
             required_cpus=required_cpus,
             required_memory_per_cpu=required_memory_per_cpu,
             time=time,
-            tres=tres
+            steps = steps
         )
 
 
@@ -124,5 +142,7 @@ if __name__  == "__main__":
     with open("sacct.json") as fh:
         json_txt = fh.read()
 
-    job = SlurmJob.from_json(json.loads(json_txt))
-    print(job)
+    sacct_output = json.loads(json_txt)
+    for job in sacct_output['jobs']:
+        job = SlurmJob.from_json(job)
+        print(job)
