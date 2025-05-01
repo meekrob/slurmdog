@@ -24,9 +24,9 @@ class TRESItem:
     @classmethod
     def from_dict(cls, d: dict) -> "TRESItem":
         return cls(
-            type_=d['type'],
+            type=d['type'],
             name=d.get('name', ''),
-            id_=d['id'],
+            id=d['id'],
             count=d['count'],
             task=d.get('task'),
             node=d.get('node')
@@ -38,31 +38,18 @@ class TRESItem:
 
 class TRESData:
     def __init__(self, 
-                requested: Dict[str, List[TRESItem]], # has lists keyed on min, max, average 
-                consumed:  Dict[str, List[TRESItem]], # has lists keyed on min, max, average 
-                allocated: List[TRESItem]): # just lists
+                requested: Dict[str, List[TRESItem]],  # has lists keyed on min, max, average, total 
+                consumed:  Dict[str, List[TRESItem]],  # has lists keyed on min, max, average, total 
+                allocated: Dict[str, List[TRESItem]]): # only has total but keeping the same data format
         self.requested = requested
         self.consumed = consumed
         self.allocated = allocated
 
-    @classmethod
-    def from_dict(cls, d: dict) -> "TRESData":
-        requested = {
-            key: [TRESItem.from_dict(item) for item in d['requested'].get(key, [])]
-            for key in ['min', 'max', 'average', 'total']
-        }
-        consumed = {
-            key: [TRESItem.from_dict(item) for item in d['consumed'].get(key, [])]
-            for key in ['min', 'max', 'average', 'total']
-        }
-        allocated = [TRESItem.from_dict(item) for item in d.get('allocated', [])]
-        return cls(requested=requested, consumed=consumed, allocated=allocated)
-
-    def find_allocated(self, resource_type: str) -> Optional[TRESItem]:
+    def find_allocated(self, resource_type: str, summary_type = "total") -> Optional[TRESItem]:
         """Find an allocated resource by type (e.g., 'cpu', 'mem', 'node')."""
-        for item in self.allocated:
+        for item in self.allocated[summary_type]:
             if item.type == resource_type:
-                return item
+                return item 
         return None
 
     def find_requested_max(self, resource_type: str) -> Optional[TRESItem]:
@@ -84,13 +71,33 @@ class TRESData:
 
     @classmethod
     def from_json(cls, data):
-        def parse_items(item_list):
-            return [TRESItem.from_json(item) for item in item_list]
+
+        
+        allocated = None
+        requested = None
+        consumed = None
+
+        # initialize
+        tres_data = {'requested': None, 'consumed': None, 'allocated': None}
+
+        # walk the nested structure
+        for category in tres_data.keys():
+            if category in data:
+                cat_dict = {}
+                for summ in ['max', 'min', 'average', 'total']: 
+                    if summ in data[category]: # 'allocated' only has 'total'
+                        tresitemlist = data[category][summ]
+                        tres_items = [ TRESItem.from_json(j) for j in tresitemlist ]
+                        cat_dict[summ] = tres_items
+
+                tres_data[category] = cat_dict
+            else:
+                Warning(f"data missing expected TRES category: {category}")
 
         return cls(
-            requested={k: parse_items(v) for k, v in data.get("requested", {}).items()},
-            consumed={k: parse_items(v) for k, v in data.get("consumed", {}).items()},
-            allocated=parse_items(data.get("allocated", [])),
+            requested=tres_data['requested'],
+            consumed=tres_data['consumed'],
+            allocated=tres_data['allocated']
         )
 
 
