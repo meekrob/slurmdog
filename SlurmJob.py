@@ -1,4 +1,4 @@
-from SlurmTres import TRESData, TRESItem
+from SlurmTres import TRESData
 from SlurmTime import TimeInfo
 from JobStep import JobStep
 from typing import Optional, List, Dict
@@ -53,12 +53,15 @@ class SlurmJob:
         tres_data = data.get("tres", {})
         tres = TRESData.from_json(tres_data) if tres_data else None
 
+        required_resources = RequiredResources(data.get('required', {}))
+
         return cls(
             job_id=job_id,
             name=name,
             nodes=nodes,
             partition=partition,
             qos=qos,
+            required = required_resources,
             required_cpus=required_cpus,
             required_memory_per_cpu=required_memory_per_cpu,
             time=time,
@@ -100,8 +103,10 @@ class SlurmJob:
         }
 
     def __repr__(self) -> str:
+        jobstep_parts = [str(k) for k in self.steps]
         return (f"<Job id={self.job_id} name={self.name} partition={self.partition} "
-                f"nodes={self.nodes}>")
+                f"nodes={self.nodes}>\n" +
+                "\n".join(jobstep_parts))
 
 class Priority:
     def __init__(self, data: Dict):
