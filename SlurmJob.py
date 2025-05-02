@@ -14,7 +14,9 @@ class SlurmJob:
                  required_cpus, 
                  required_memory_per_cpu, 
                  time, 
-                 steps:List[JobStep]):
+                 steps:List[JobStep],
+                 submit_line: str,
+                 working_directory: str):
     
         self.job_id = job_id
         self.name = name
@@ -26,6 +28,8 @@ class SlurmJob:
         self.required_memory_per_cpu = required_memory_per_cpu  # in MiB
         self.time = time  # SlurmTime instance
         self.steps = steps
+        self.submit_line = submit_line
+        self.working_directory = working_directory
 
     @classmethod
     def from_json(cls, data):
@@ -65,7 +69,9 @@ class SlurmJob:
             required_cpus=required_cpus,
             required_memory_per_cpu=required_memory_per_cpu,
             time=time,
-            steps = steps
+            steps = steps,
+            submit_line = data['submit_line'],
+            working_directory = data['working_directory']
         )
 
 
@@ -104,8 +110,10 @@ class SlurmJob:
 
     def __repr__(self) -> str:
         jobstep_parts = [str(k) for k in self.steps]
-        return (f"<Job id={self.job_id} name={self.name} partition={self.partition} "
+        return (f"<Job id={self.job_id} name={self.name}\n\tqos={self.qos}\n\tpartition={self.partition}\n\trequired_cpus={self.required_cpus}\n\trequired_memory_per_cpu={self.required_memory_per_cpu} "
                 f"nodes={self.nodes}>\n" +
+                f" Submit: {self.submit_line}\n" +
+                f" Working directory: {self.working_directory}\n" +
                 "\n".join(jobstep_parts))
 
 class Priority:
