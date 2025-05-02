@@ -11,6 +11,8 @@ def main():
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
+    if mem_str == '': return 0
+    
     mem_str = mem_str.strip().upper()
     if mem_str.endswith('K'):
         return int(float(mem_str[:-1]) * 1024)
