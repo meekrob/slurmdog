@@ -11,16 +11,18 @@ def main():
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
+    mem_str = mem_str.strip().upper()
     if mem_str.endswith('K'):
-        return int(mem_str[:-1]) * 1024
+        return int(float(mem_str[:-1]) * 1024)
     elif mem_str.endswith('M'):
-        return int(mem_str[:-1]) * 1024 * 1024
+        return int(float(mem_str[:-1]) * 1024 ** 2)
     elif mem_str.endswith('G'):
-        return int(mem_str[:-1]) * 1024 * 1024 * 1024
+        return int(float(mem_str[:-1]) * 1024 ** 3)
     elif mem_str.endswith('T'):
-        return int(mem_str[:-1]) * 1024 * 1024 * 1024 * 1024
+        return int(float(mem_str[:-1]) * 1024 ** 4)
     else:
-        return int(mem_str)  # Assuming bytes if no suffix
+        # Assume it's already in bytes if there's no suffix
+        return int(float(mem_str))
 
 def parse_sacct(job_id: str):
     # Run the sacct command
