@@ -85,12 +85,15 @@ class TRESData:
             if category in data:
                 cat_dict = {}
                 for summ in ['max', 'min', 'average', 'total']: 
-                    if summ in data[category]: # 'allocated' only has 'total'
+                    if summ in data[category]: 
                         tresitemlist = data[category][summ]
                         tres_items = [ TRESItem.from_json(j) for j in tresitemlist ]
                         cat_dict[summ] = tres_items
+                    elif category == 'allocated' and type(data[category] == type([])):                
+                        cat_dict['total'] = [ TRESItem.from_json(j) for j in data[category] ]
 
                 tres_data[category] = cat_dict
+                
             else:
                 Warning(f"data missing expected TRES category: {category}")
 
