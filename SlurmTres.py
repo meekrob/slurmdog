@@ -72,11 +72,6 @@ class TRESData:
     @classmethod
     def from_json(cls, data):
 
-        
-        allocated = None
-        requested = None
-        consumed = None
-
         # initialize
         tres_data = {'requested': None, 'consumed': None, 'allocated': None}
 
@@ -93,7 +88,7 @@ class TRESData:
                         cat_dict['total'] = [ TRESItem.from_json(j) for j in data[category] ]
 
                 tres_data[category] = cat_dict
-                
+
             else:
                 Warning(f"data missing expected TRES category: {category}")
 

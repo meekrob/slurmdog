@@ -100,8 +100,10 @@ class JobStep:
             parts.append("  TRES Info:")
             if self.tres.allocated:
                 parts.append("    Allocated:")
-                for item in self.tres.allocated:
-                    parts.append(f"      - {item}")
+                for category, items in self.tres.requested.items():
+                    parts.append(f"      {category.capitalize()}:")
+                    for item in items:
+                        parts.append(f"        - {item}")
             if self.tres.requested:
                 parts.append("    Requested:")
                 for category, items in self.tres.requested.items():
