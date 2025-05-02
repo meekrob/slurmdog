@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import subprocess
+import subprocess,re
 import sys
 def main():
 
@@ -12,7 +12,7 @@ def main():
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
     if mem_str == '': return 0
-    
+
     mem_str = mem_str.strip().upper()
     if mem_str.endswith('K'):
         return int(float(mem_str[:-1]) * 1024)
@@ -73,16 +73,16 @@ def calculate_efficiencies(job_data):
     # Convert memory and CPU times
     requested_mem = convert_to_bytes(job_data['REQMEM'])
     max_rss = convert_to_bytes(job_data['MaxRSS'])
-    total_cpu = convert_to_seconds(job_data['TotalCPU'])  # We'll implement convert_to_seconds next
+    
     
     # Example data for utilized memory (from TRESData):
-    max_rss_utilized = 3462881280  # This would be retrieved based on your logic
+    max_rss_utilized = max_rss  # This would be retrieved based on your logic
 
     # Memory Efficiency
     memory_efficiency = (max_rss_utilized / requested_mem) * 100 if requested_mem else 0
     
     # Total CPU in seconds (convert to seconds)
-    total_cpu_time = convert_to_seconds(job_data['TotalCPU'])
+    total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
     
     # CPU Efficiency
     cpu_efficiency = (total_cpu_time / (int(job_data['AllocCPUS']) * 3600)) * 100 if total_cpu_time else 0
@@ -106,6 +106,24 @@ def convert_to_seconds(time_str: str) -> int:
         seconds = int(parts[2])
         return hours * 3600 + minutes * 60 + seconds
     return 0
+
+
+
+
+def parse_total_cpu_time(time_str: str) -> float:
+    # Format: HH:MM:SS.sss or MM:SS.sss
+    time_str = time_str.strip()
+    parts = time_str.split(':')
+    
+    if len(parts) == 3:
+        hours, minutes, seconds = parts
+        return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+    elif len(parts) == 2:
+        minutes, seconds = parts
+        return int(minutes) * 60 + float(seconds)
+    else:
+        # Fallback for just seconds
+        return float(parts[0])
 
 def print_seff_output(job_data):
     efficiencies = calculate_efficiencies(job_data)
