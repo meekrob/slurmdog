@@ -97,9 +97,12 @@ def format_size(bytes:int) -> str:
 
 def main():
 
-    #job_id = sys.argv[1]
-    #jobs = parse_sacct(job_id)
-    jobs = parse_sacct('')
+    if len(sys.argv) == 1:
+        jobs = parse_sacct('')
+    else:
+        job_id = sys.argv[1]
+        jobs = parse_sacct(job_id)
+    
     summary = aggregate_sacct_rows(jobs)
     print_seff_output(summary)
 
