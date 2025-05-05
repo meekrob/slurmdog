@@ -1,16 +1,115 @@
 #!/usr/bin/env python
-import subprocess,re
+import subprocess
 import sys
+from typing import Optional, List
+
+import re
+
+from typing import List, Dict, Any
+from collections import defaultdict
+
+def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
+    summary = defaultdict(lambda: None)
+
+    # Find top-level job (no "." in JobID)
+    top_level = next((step for step in steps if '.' not in step['JobID']), None)
+
+    if top_level:
+        # Take directly from top-level step
+        for field in ["JobID", "AllocCPUS", "REQMEM", "Elapsed", "NTasks", "NNodes", "User", "Group", "State", "Cluster", "ExitCode"]:
+            summary[field] = top_level.get(field)
+
+    # Aggregated fields
+    total_cpu = 0.0
+    #elapsed = 0.0
+    max_rss = 0
+
+    for step in steps[1:]:
+        if step.get("TotalCPU"):
+            total_cpu += parse_time(step["TotalCPU"])
+        #if step.get("Elapsed"):
+        #    elapsed += parse_time(step["Elapsed"])
+        if step.get("MaxRSS"):
+            mem = convert_to_bytes(step["MaxRSS"])
+            if mem is not None:
+                max_rss = max(max_rss, mem)
+
+    summary["TotalCPU"] = total_cpu
+    #summary["Elapsed"] = elapsed
+    summary["MaxRSS"] = max_rss
+
+    return dict(summary)
+
+
+def aggregate_slurm_steps(step_data: List[dict]) -> dict:
+    summary = {
+        'TotalCPU': 0.0,
+        'Elapsed': 0.0,
+        'MaxRSS': 0,
+        'AllocCPUS': 0,
+        'REQMEM': None
+    }
+
+    for step in step_data:
+        summary['TotalCPU'] += parse_time(step.get('TotalCPU', '0'))
+        summary['Elapsed'] += parse_time(step.get('Elapsed', '0'))
+
+        max_rss_str = step.get('MaxRSS')
+        if max_rss_str:
+            max_rss = convert_to_bytes(max_rss_str)
+            summary['MaxRSS'] = max(summary['MaxRSS'], max_rss)
+
+        summary['AllocCPUS'] += int(step.get('AllocCPUS', 0))
+
+        if not summary['REQMEM']:
+            summary['REQMEM'] = step.get('REQMEM')
+
+    return summary
+
+def convert_to_bytes(s: str) -> int:
+    """Convert a memory size string like '37.5G' or '320K' to bytes."""
+    units = {
+        'K': 1024,
+        'M': 1024 ** 2,
+        'G': 1024 ** 3,
+        'T': 1024 ** 4,
+    }
+
+    match = re.fullmatch(r'(\d+(?:\.\d+)?)([KMGT])', s.strip(), re.IGNORECASE)
+    if not match:
+        raise ValueError(f"Cannot parse memory string: {s}")
+
+    number, unit = match.groups()
+    return int(float(number) * units[unit.upper()])
+
+def format_size(bytes:int) -> str:
+    units:list[str] = ["B",  "KB", "MB", "GB", "TB", "PB"]
+    value:float = float(bytes)
+    while int(value / 1024) > 0:
+        if len(units) == 1: 
+            break
+
+        value /= 1024
+        units = units[1:]
+
+    return f"{value:.2f} {units[0]}"
+
+
 def main():
 
-    job_id = sys.argv[1]
-    jobs = parse_sacct(job_id)
-    for job in jobs:
-        print(job)
-        print_seff_output(job)
+    #job_id = sys.argv[1]
+    #jobs = parse_sacct(job_id)
+    jobs = parse_sacct('')
+    summary = aggregate_sacct_rows(jobs)
+    print_seff_output(summary)
+
+    #for job in jobs:
+    #   print(job)
+    #  print_seff_output(job)
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
+    if type(mem_str) == type(int()): return mem_str
     if mem_str == '': return 0
 
     mem_str = mem_str.strip().upper()
@@ -27,19 +126,28 @@ def convert_to_bytes(mem_str: str) -> int:
         return int(float(mem_str))
 
 def parse_sacct(job_id: str):
-    # Run the sacct command
-    cmd = [
-        'sacct',
-        '-P', '-n', '-a',
-        '--format', 'JobID,User,Group,State,Cluster,AllocCPUS,REQMEM,TotalCPU,Elapsed,MaxRSS,ExitCode,NNodes,NTasks',
-        '-j', job_id
-    ]
-    
-    # Capture the output
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    
-    # Split the output into lines and process
-    lines = result.stdout.strip().split('\n')
+
+    if job_id != "":
+        # Run the sacct command
+        cmd = [
+            'sacct',
+            '-P', '-n', '-a',
+            '--format', 'JobID,User,Group,State,Cluster,AllocCPUS,REQMEM,TotalCPU,Elapsed,MaxRSS,ExitCode,NNodes,NTasks',
+            '-j', job_id
+        ]
+        
+        # Capture the output
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        # Split the output into lines and process
+        lines = result.stdout.strip().split('\n')
+
+    else:
+        lines = """
+12078642_6|naly@colostate.edu|nalypgrp@colostate.edu|COMPLETED|alpine|10|37.50G|20:18.048|00:05:26||0:0|1|
+12078642_6.batch|||COMPLETED|alpine|10||20:18.047|00:05:26|3381720K|0:0|1|1
+12078642_6.extern|||COMPLETED|alpine|10||00:00.001|00:05:26|0|0:0|1|1
+""".strip().split('\n')
     
     # List to hold the parsed job information
     jobs = []
@@ -84,8 +192,10 @@ def calculate_efficiencies(job_data):
     # Total CPU in seconds (convert to seconds)
     total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
     
+    cpu_wall_time = (parse_time(job_data['Elapsed']) * int(job_data['AllocCPUS']))
+
     # CPU Efficiency
-    cpu_efficiency = (total_cpu_time / (int(job_data['AllocCPUS']) * 3600)) * 100 if total_cpu_time else 0
+    cpu_efficiency = (total_cpu_time / cpu_wall_time) * 100 if total_cpu_time else 0
     
     return {
         'JobID': job_data['JobID'],
@@ -94,7 +204,10 @@ def calculate_efficiencies(job_data):
         'MaxRSS Utilized': max_rss_utilized,
         'Total CPU': total_cpu_time,
         'CPU Efficiency': cpu_efficiency,
-        'Memory Efficiency': memory_efficiency
+        'CPU Wall-time': cpu_wall_time,
+        'Memory Utilized': max_rss_utilized,
+        'Memory Efficiency': memory_efficiency,
+        'REQMEM': job_data['REQMEM']
     }
 
 # Function to convert time strings like "00:20:00" into seconds
@@ -107,11 +220,42 @@ def convert_to_seconds(time_str: str) -> int:
         return hours * 3600 + minutes * 60 + seconds
     return 0
 
+def seconds_to_timeformat(seconds: int) -> str:
+    hours = int(seconds/3600)
+    seconds_remaining = seconds % 3600
+    minutes = int(seconds_remaining/60)
+    seconds = int(seconds_remaining % 60)
 
+    return f"{hours:02d}:{minutes}:{seconds}"
+
+
+def parse_time(s: Optional[str]) -> float:
+    """
+    Parse Slurm-style time strings into seconds.
+    Returns 0.0 if input is missing or invalid.
+    """
+    if not s or s.strip() in {"", "Unknown"}:
+        return 0.0
+
+    try:
+        parts = s.strip().split(":")
+        if len(parts) == 3:
+            h, m, sec = parts
+            return int(h) * 3600 + int(m) * 60 + float(sec)
+        elif len(parts) == 2:
+            m, sec = parts
+            return int(m) * 60 + float(sec)
+        elif len(parts) == 1:
+            return float(parts[0])
+    except (ValueError, TypeError):
+        return 0.0
+    
+    return 0
 
 
 def parse_total_cpu_time(time_str: str) -> float:
     # Format: HH:MM:SS.sss or MM:SS.sss
+    if type(time_str) == type(0.0): return time_str
     time_str = time_str.strip()
     parts = time_str.split(':')
     
@@ -127,14 +271,18 @@ def parse_total_cpu_time(time_str: str) -> float:
 
 def print_seff_output(job_data):
     efficiencies = calculate_efficiencies(job_data)
-    
+
     print(f"Job ID: {efficiencies['JobID']}")
-    print(f"User: {efficiencies['User']}")
-    print(f"MaxRSS: {efficiencies['MaxRSS']}")
-    print(f"MaxRSS Utilized: {efficiencies['MaxRSS Utilized']} bytes")
-    print(f"Total CPU: {efficiencies['Total CPU']} seconds")
-    print(f"CPU Efficiency: {efficiencies['CPU Efficiency']:.2f}%")
-    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}%")
+    print(f"User/Group: {efficiencies['User']}/{job_data['Group']}")
+    print(f"State: {job_data['State']} (exit code {job_data['ExitCode']})")
+    print(f"Nodes: {job_data['NNodes']}")
+    print(f"Cores per Node: {job_data['AllocCPUS']}")
+    
+    print(f"CPU Utilized: {seconds_to_timeformat(efficiencies['Total CPU'])}")
+    print(f"CPU Efficiency: {efficiencies['CPU Efficiency']:.2f}% of {seconds_to_timeformat(efficiencies['CPU Wall-time'])} core-walltime")
+    print(f"Job Wall-clock time: {job_data['Elapsed']}")
+    print(f"Memory Utilized: {format_size(efficiencies['MaxRSS Utilized'])}")    
+    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {efficiencies['REQMEM']}")
 
 if __name__ == "__main__":
     main()
