@@ -229,7 +229,7 @@ def seconds_to_timeformat(seconds: int) -> str:
     minutes = int(seconds_remaining/60)
     seconds = int(seconds_remaining % 60)
 
-    return f"{hours:02d}:{minutes}:{seconds}"
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def parse_time(s: Optional[str]) -> float:
@@ -289,3 +289,4 @@ def print_seff_output(job_data):
 
 if __name__ == "__main__":
     main()
+
