@@ -9,7 +9,7 @@ from typing import List, Dict, Any
 from collections import defaultdict
 
 def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
-    summary = defaultdict(lambda: None)
+    summary:dict = defaultdict(lambda: None)
 
     # Find top-level job (no "." in JobID)
     top_level = next((step for step in steps if '.' not in step['JobID']), None)
@@ -42,7 +42,7 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def aggregate_slurm_steps(step_data: List[dict]) -> dict:
-    summary = {
+    summary:dict = {
         'TotalCPU': 0.0,
         'Elapsed': 0.0,
         'MaxRSS': 0,
@@ -151,6 +151,12 @@ def parse_sacct(job_id: str):
 12078642_6.batch|||COMPLETED|alpine|10||20:18.047|00:05:26|3381720K|0:0|1|1
 12078642_6.extern|||COMPLETED|alpine|10||00:00.001|00:05:26|0|0:0|1|1
 """.strip().split('\n')
+        
+        # from riviera - Elapsed has the "days format"
+        lines = """
+52791|dking|dking|TIMEOUT|slurm|128|491554M|00:29.686|2-00:00:02||0:0|1|
+52791.batch|||CANCELLED|slurm|128||00:29.686|2-00:00:03|36404576K|0:15|1|1
+""".strip().split('\n')
     
     # List to hold the parsed job information
     jobs = []
@@ -243,7 +249,10 @@ def parse_time(s: Optional[str]) -> float:
     try:
         parts = s.strip().split(":")
         if len(parts) == 3:
-            h, m, sec = parts
+            hh, m, sec = parts
+            if hh.find('-') > 0:
+                days,hours = hh.split('-')
+                h = int(days) * 24 + int(hours)
             return int(h) * 3600 + int(m) * 60 + float(sec)
         elif len(parts) == 2:
             m, sec = parts
