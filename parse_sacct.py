@@ -83,17 +83,19 @@ def format_size(bytes:int) -> str:
 def main():
 
     if len(sys.argv) == 1:
-        jobs = parse_sacct('')
+        job_id = ""
     else:
         job_id = sys.argv[1]
-        jobs = parse_sacct(job_id)
+           
+    for jid, jobs in parse_sacct(job_id):
     
-    summary = aggregate_sacct_rows(jobs)
-    print_seff_output(summary)
+        summary = aggregate_sacct_rows(jobs)
+        print(f"{jid=}")
+        print_seff_output(summary)
 
-    #for job in jobs:
-    #   print(job)
-    #  print_seff_output(job)
+        #for job in jobs:
+        #   print(job)
+        #  print_seff_output(job)
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
@@ -131,7 +133,7 @@ def parse_sacct(job_id: str):
         lines = result.stdout.strip().split('\n')
 
     else:
-        lines = """
+        alpine_lines = """
 12078642_6|naly@colostate.edu|nalypgrp@colostate.edu|COMPLETED|alpine|10|37.50G|20:18.048|00:05:26||0:0|1|
 12078642_6.batch|||COMPLETED|alpine|10||20:18.047|00:05:26|3381720K|0:0|1|1
 12078642_6.extern|||COMPLETED|alpine|10||00:00.001|00:05:26|0|0:0|1|1
@@ -143,13 +145,34 @@ def parse_sacct(job_id: str):
 52791.batch|||CANCELLED|slurm|128||00:29.686|2-00:00:03|36404576K|0:15|1|1
 """.strip().split('\n')
     
+    lines = alpine_lines + riviera_lines
+
     # List to hold the parsed job information
-    jobs = []
+    for jid, jobs in parse_sacct_lines(lines):
+        yield jid, jobs
+
+def get_job_id_prefix(job_id_str):
+    if job_id_str.find('.') > 0:
+        parts = job_id_str.split('.')
+        return parts[0]
     
+    return job_id_str
+
+def parse_sacct_lines(lines):
+    jobs = []
+    last_job_id = None
     # Parse each line
     for line in lines:
         fields = line.split('|')
-        
+        job_id_prefix = get_job_id_prefix(fields[0])
+
+        if last_job_id is not None and job_id_prefix != last_job_id:
+            yield last_job_id, jobs
+            jobs = []
+
+        last_job_id = job_id_prefix
+
+
         # Map each field to a dictionary key
         job_data = {
             'JobID': fields[0],
@@ -169,7 +192,7 @@ def parse_sacct(job_id: str):
         
         jobs.append(job_data)
     
-    return jobs
+    yield last_job_id, jobs
 
 def calculate_efficiencies(job_data):
     # Convert memory and CPU times
