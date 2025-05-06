@@ -66,21 +66,6 @@ def aggregate_slurm_steps(step_data: List[dict]) -> dict:
 
     return summary
 
-def convert_to_bytes(s: str) -> int:
-    """Convert a memory size string like '37.5G' or '320K' to bytes."""
-    units = {
-        'K': 1024,
-        'M': 1024 ** 2,
-        'G': 1024 ** 3,
-        'T': 1024 ** 4,
-    }
-
-    match = re.fullmatch(r'(\d+(?:\.\d+)?)([KMGT])', s.strip(), re.IGNORECASE)
-    if not match:
-        raise ValueError(f"Cannot parse memory string: {s}")
-
-    number, unit = match.groups()
-    return int(float(number) * units[unit.upper()])
 
 def format_size(bytes:int) -> str:
     units:list[str] = ["B",  "KB", "MB", "GB", "TB", "PB"]
