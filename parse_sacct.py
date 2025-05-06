@@ -3,7 +3,7 @@ import subprocess
 import sys
 from typing import Optional, List
 
-import re
+from numbers import Number
 
 from typing import List, Dict, Any
 from collections import defaultdict
@@ -138,7 +138,7 @@ def parse_sacct(job_id: str):
 """.strip().split('\n')
         
         # from riviera - Elapsed has the "days format"
-        lines = """
+        riviera_lines = """
 52791|dking|dking|TIMEOUT|slurm|128|491554M|00:29.686|2-00:00:02||0:0|1|
 52791.batch|||CANCELLED|slurm|128||00:29.686|2-00:00:03|36404576K|0:15|1|1
 """.strip().split('\n')
@@ -187,7 +187,10 @@ def calculate_efficiencies(job_data):
     memory_efficiency = (max_rss_utilized / requested_mem) * 100 if requested_mem else 0
     
     # Total CPU in seconds (convert to seconds)
-    total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
+    if isinstance(job_data['TotalCPU'], Number):
+        total_cpu_time = job_data['TotalCPU']
+    else:
+        total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
     
     cpu_wall_time = (parse_time(job_data['Elapsed']) * int(job_data['AllocCPUS']))
 
@@ -261,7 +264,7 @@ def parse_time(s: Optional[str]) -> float:
 
 def parse_total_cpu_time(time_str: str) -> float:
     # Format: HH:MM:SS.sss or MM:SS.sss
-    if type(time_str) == type(0.0): return time_str
+    
     time_str = time_str.strip()
     parts = time_str.split(':')
     
