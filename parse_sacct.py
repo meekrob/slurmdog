@@ -97,7 +97,7 @@ def main():
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
-    if type(mem_str) == type(int()): return mem_str
+
     if mem_str == '': return 0
 
     mem_str = mem_str.strip().upper()
@@ -174,7 +174,10 @@ def parse_sacct(job_id: str):
 def calculate_efficiencies(job_data):
     # Convert memory and CPU times
     requested_mem = convert_to_bytes(job_data['REQMEM'])
-    max_rss = convert_to_bytes(job_data['MaxRSS'])
+    if type(job_data['MaxRSS']) == type(str()):
+        max_rss = convert_to_bytes(job_data['MaxRSS'])
+    else:
+        max_rss = job_data['MaxRSS']
     
     
     # Example data for utilized memory (from TRESData):
@@ -215,12 +218,16 @@ def convert_to_seconds(time_str: str) -> int:
     return 0
 
 def seconds_to_timeformat(seconds: int) -> str:
-    hours = int(seconds/3600)
-    seconds_remaining = seconds % 3600
+    days = int(seconds/(3600*24))
+    seconds_remaining = seconds % (3600*24)
+    hours = int(seconds_remaining/3600)
+    seconds_remaining = seconds_remaining % 3600
     minutes = int(seconds_remaining/60)
     seconds = int(seconds_remaining % 60)
 
-    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+    day_str = ''
+    if days > 0: day_str = f"{days}-"
+    return f"{day_str}{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def parse_time(s: Optional[str]) -> float:
@@ -238,7 +245,9 @@ def parse_time(s: Optional[str]) -> float:
             if hh.find('-') > 0:
                 days,hours = hh.split('-')
                 h = int(days) * 24 + int(hours)
-            return int(h) * 3600 + int(m) * 60 + float(sec)
+            else:
+                h = int(hh)
+            return h * 3600 + int(m) * 60 + float(sec)
         elif len(parts) == 2:
             m, sec = parts
             return int(m) * 60 + float(sec)
@@ -278,8 +287,11 @@ def print_seff_output(job_data):
     print(f"CPU Utilized: {seconds_to_timeformat(efficiencies['Total CPU'])}")
     print(f"CPU Efficiency: {efficiencies['CPU Efficiency']:.2f}% of {seconds_to_timeformat(efficiencies['CPU Wall-time'])} core-walltime")
     print(f"Job Wall-clock time: {job_data['Elapsed']}")
-    print(f"Memory Utilized: {format_size(efficiencies['MaxRSS Utilized'])}")    
-    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {efficiencies['REQMEM']}")
+    print(f"Memory Utilized: {format_size(efficiencies['MaxRSS Utilized'])}")  
+
+    req_mem_bytes = convert_to_bytes(efficiencies['REQMEM'])
+
+    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {format_size(req_mem_bytes)}")
 
 if __name__ == "__main__":
     main()
