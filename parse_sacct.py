@@ -3,13 +3,13 @@ import subprocess
 import sys
 from typing import Optional, List
 
-import re
+from numbers import Number
 
 from typing import List, Dict, Any
 from collections import defaultdict
 
 def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
-    summary = defaultdict(lambda: None)
+    summary:dict = defaultdict(lambda: None)
 
     # Find top-level job (no "." in JobID)
     top_level = next((step for step in steps if '.' not in step['JobID']), None)
@@ -42,7 +42,7 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def aggregate_slurm_steps(step_data: List[dict]) -> dict:
-    summary = {
+    summary:dict = {
         'TotalCPU': 0.0,
         'Elapsed': 0.0,
         'MaxRSS': 0,
@@ -66,21 +66,6 @@ def aggregate_slurm_steps(step_data: List[dict]) -> dict:
 
     return summary
 
-def convert_to_bytes(s: str) -> int:
-    """Convert a memory size string like '37.5G' or '320K' to bytes."""
-    units = {
-        'K': 1024,
-        'M': 1024 ** 2,
-        'G': 1024 ** 3,
-        'T': 1024 ** 4,
-    }
-
-    match = re.fullmatch(r'(\d+(?:\.\d+)?)([KMGT])', s.strip(), re.IGNORECASE)
-    if not match:
-        raise ValueError(f"Cannot parse memory string: {s}")
-
-    number, unit = match.groups()
-    return int(float(number) * units[unit.upper()])
 
 def format_size(bytes:int) -> str:
     units:list[str] = ["B",  "KB", "MB", "GB", "TB", "PB"]
@@ -98,21 +83,23 @@ def format_size(bytes:int) -> str:
 def main():
 
     if len(sys.argv) == 1:
-        jobs = parse_sacct('')
+        job_id = ""
     else:
         job_id = sys.argv[1]
-        jobs = parse_sacct(job_id)
+           
+    for jid, jobs in parse_sacct(job_id):
     
-    summary = aggregate_sacct_rows(jobs)
-    print_seff_output(summary)
+        summary = aggregate_sacct_rows(jobs)
+        print(f"{jid=}")
+        print_seff_output(summary)
 
-    #for job in jobs:
-    #   print(job)
-    #  print_seff_output(job)
+        #for job in jobs:
+        #   print(job)
+        #  print_seff_output(job)
 
 # Function to convert human-readable memory sizes (e.g., '320K', '4G') to bytes
 def convert_to_bytes(mem_str: str) -> int:
-    if type(mem_str) == type(int()): return mem_str
+
     if mem_str == '': return 0
 
     mem_str = mem_str.strip().upper()
@@ -146,19 +133,46 @@ def parse_sacct(job_id: str):
         lines = result.stdout.strip().split('\n')
 
     else:
-        lines = """
+        alpine_lines = """
 12078642_6|naly@colostate.edu|nalypgrp@colostate.edu|COMPLETED|alpine|10|37.50G|20:18.048|00:05:26||0:0|1|
 12078642_6.batch|||COMPLETED|alpine|10||20:18.047|00:05:26|3381720K|0:0|1|1
 12078642_6.extern|||COMPLETED|alpine|10||00:00.001|00:05:26|0|0:0|1|1
 """.strip().split('\n')
+        
+        # from riviera - Elapsed has the "days format"
+        riviera_lines = """
+52791|dking|dking|TIMEOUT|slurm|128|491554M|00:29.686|2-00:00:02||0:0|1|
+52791.batch|||CANCELLED|slurm|128||00:29.686|2-00:00:03|36404576K|0:15|1|1
+""".strip().split('\n')
     
+    lines = alpine_lines + riviera_lines
+
     # List to hold the parsed job information
-    jobs = []
+    for jid, jobs in parse_sacct_lines(lines):
+        yield jid, jobs
+
+def get_job_id_prefix(job_id_str):
+    if job_id_str.find('.') > 0:
+        parts = job_id_str.split('.')
+        return parts[0]
     
+    return job_id_str
+
+def parse_sacct_lines(lines):
+    jobs = []
+    last_job_id = None
     # Parse each line
     for line in lines:
         fields = line.split('|')
-        
+        job_id_prefix = get_job_id_prefix(fields[0])
+
+        if last_job_id is not None and job_id_prefix != last_job_id:
+            yield last_job_id, jobs
+            jobs = []
+
+        last_job_id = job_id_prefix
+
+
         # Map each field to a dictionary key
         job_data = {
             'JobID': fields[0],
@@ -178,12 +192,15 @@ def parse_sacct(job_id: str):
         
         jobs.append(job_data)
     
-    return jobs
+    yield last_job_id, jobs
 
 def calculate_efficiencies(job_data):
     # Convert memory and CPU times
     requested_mem = convert_to_bytes(job_data['REQMEM'])
-    max_rss = convert_to_bytes(job_data['MaxRSS'])
+    if type(job_data['MaxRSS']) == type(str()):
+        max_rss = convert_to_bytes(job_data['MaxRSS'])
+    else:
+        max_rss = job_data['MaxRSS']
     
     
     # Example data for utilized memory (from TRESData):
@@ -193,7 +210,10 @@ def calculate_efficiencies(job_data):
     memory_efficiency = (max_rss_utilized / requested_mem) * 100 if requested_mem else 0
     
     # Total CPU in seconds (convert to seconds)
-    total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
+    if isinstance(job_data['TotalCPU'], Number):
+        total_cpu_time = job_data['TotalCPU']
+    else:
+        total_cpu_time = parse_total_cpu_time(job_data['TotalCPU'])
     
     cpu_wall_time = (parse_time(job_data['Elapsed']) * int(job_data['AllocCPUS']))
 
@@ -224,12 +244,16 @@ def convert_to_seconds(time_str: str) -> int:
     return 0
 
 def seconds_to_timeformat(seconds: int) -> str:
-    hours = int(seconds/3600)
-    seconds_remaining = seconds % 3600
+    days = int(seconds/(3600*24))
+    seconds_remaining = seconds % (3600*24)
+    hours = int(seconds_remaining/3600)
+    seconds_remaining = seconds_remaining % 3600
     minutes = int(seconds_remaining/60)
     seconds = int(seconds_remaining % 60)
 
-    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+    day_str = ''
+    if days > 0: day_str = f"{days}-"
+    return f"{day_str}{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def parse_time(s: Optional[str]) -> float:
@@ -243,8 +267,13 @@ def parse_time(s: Optional[str]) -> float:
     try:
         parts = s.strip().split(":")
         if len(parts) == 3:
-            h, m, sec = parts
-            return int(h) * 3600 + int(m) * 60 + float(sec)
+            hh, m, sec = parts
+            if hh.find('-') > 0:
+                days,hours = hh.split('-')
+                h = int(days) * 24 + int(hours)
+            else:
+                h = int(hh)
+            return h * 3600 + int(m) * 60 + float(sec)
         elif len(parts) == 2:
             m, sec = parts
             return int(m) * 60 + float(sec)
@@ -258,7 +287,7 @@ def parse_time(s: Optional[str]) -> float:
 
 def parse_total_cpu_time(time_str: str) -> float:
     # Format: HH:MM:SS.sss or MM:SS.sss
-    if type(time_str) == type(0.0): return time_str
+    
     time_str = time_str.strip()
     parts = time_str.split(':')
     
@@ -284,8 +313,11 @@ def print_seff_output(job_data):
     print(f"CPU Utilized: {seconds_to_timeformat(efficiencies['Total CPU'])}")
     print(f"CPU Efficiency: {efficiencies['CPU Efficiency']:.2f}% of {seconds_to_timeformat(efficiencies['CPU Wall-time'])} core-walltime")
     print(f"Job Wall-clock time: {job_data['Elapsed']}")
-    print(f"Memory Utilized: {format_size(efficiencies['MaxRSS Utilized'])}")    
-    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {efficiencies['REQMEM']}")
+    print(f"Memory Utilized: {format_size(efficiencies['MaxRSS Utilized'])}")  
+
+    req_mem_bytes = convert_to_bytes(efficiencies['REQMEM'])
+
+    print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {format_size(req_mem_bytes)}")
 
 if __name__ == "__main__":
     main()
