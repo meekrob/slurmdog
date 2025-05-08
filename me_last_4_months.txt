@@ -1,0 +1,102 @@
+11965642|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:04.410|12:00:26||0:0|1|
+11965642.batch|||CANCELLED|alpine|1||00:04.410|12:00:33|50104K|0:15|1|1
+11965642.extern|||COMPLETED|alpine|1||00:00:00|12:00:26|0|0:0|1|1
+12051616|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|02:56.346|01:04:38||0:0|1|
+12051616.batch|||OUT_OF_MEMORY|alpine|1||02:56.345|01:04:42|2565880K|0:125|1|1
+12051616.extern|||COMPLETED|alpine|1||00:00:00|01:04:38|0|0:0|1|1
+12060421|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:22.252|12:00:24||0:0|1|
+12060421.batch|||CANCELLED|alpine|1||00:22.251|12:00:28|304804K|0:15|1|1
+12060421.extern|||COMPLETED|alpine|1||00:00:00|12:00:24|0|0:0|1|1
+12109569|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:15.230|01:04:47||0:0|1|
+12109569.batch|||CANCELLED|alpine|1||00:15.229|01:04:53|296436K|0:15|1|1
+12109569.extern|||COMPLETED|alpine|1||00:00:00|01:04:47|0|0:0|1|1
+12171700|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:12.238|00:56:50||0:0|1|
+12171700.batch|||COMPLETED|alpine|1||00:12.237|00:56:50|140472K|0:0|1|1
+12171700.extern|||COMPLETED|alpine|1||00:00:00|00:56:50|0|0:0|1|1
+12248731|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:04.991|00:14:40||0:0|1|
+12248731.extern|||COMPLETED|alpine|1||00:00:00|00:14:40|0|0:0|1|1
+12248731.0|||COMPLETED|alpine|1||00:04.990|00:14:40|16764K|0:0|1|1
+12405073|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:09.561|12:00:27||0:0|1|
+12405073.batch|||CANCELLED|alpine|1||00:09.560|12:00:28|106952K|0:15|1|1
+12405073.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1
+12480707|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|05:40.319|01:39:10||0:0|1|
+12480707.batch|||CANCELLED|alpine|1||05:40.318|01:39:14|158868K|0:15|1|1
+12480707.extern|||COMPLETED|alpine|1||00:00:00|01:39:10|0|0:0|1|1
+12524778|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:32.960|12:00:27||0:0|1|
+12524778.batch|||CANCELLED|alpine|1||00:32.959|12:00:31|274868K|0:15|1|1
+12524778.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1
+12627019|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|4|15G|00:10.206|00:36:32||0:0|1|
+12627019.batch|||COMPLETED|alpine|4||00:10.205|00:36:32|210584K|0:0|1|1
+12627019.extern|||COMPLETED|alpine|4||00:00:00|00:36:32|0|0:0|1|1
+12694350|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.311|04:00:11||0:0|1|
+12694350.batch|||CANCELLED|alpine|4||00:09.310|04:00:14|170988K|0:15|1|1
+12694350.extern|||COMPLETED|alpine|4||00:00:00|04:00:11|0|0:0|1|1
+12734784|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.305|04:00:10||0:0|1|
+12734784.batch|||CANCELLED|alpine|4||00:09.304|04:00:11|111400K|0:15|1|1
+12734784.extern|||COMPLETED|alpine|4||00:00:00|04:00:10|0|0:0|1|1
+12759346|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:06.433|00:16:30||0:0|1|
+12759346.batch|||CANCELLED|alpine|4||00:06.432|00:16:32|104544K|0:15|1|1
+12759346.extern|||COMPLETED|alpine|4||00:00:00|00:16:30|0|0:0|1|1
+12762492|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|20:39.049|04:00:20||0:0|1|
+12762492.batch|||CANCELLED|alpine|4||20:39.048|04:00:23|6713452K|0:15|1|1
+12762492.extern|||COMPLETED|alpine|4||00:00.001|04:00:20|0|0:0|1|1
+12771989|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:18.136|04:00:08||0:0|1|
+12771989.batch|||CANCELLED|alpine|4||00:18.135|04:00:10|212988K|0:15|1|1
+12771989.extern|||COMPLETED|alpine|4||00:00:00|04:00:08|0|0:0|1|1
+12781333|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.089|00:28:21||0:0|1|
+12781333.extern|||COMPLETED|alpine|1||00:00.001|00:28:21|0|0:0|1|1
+12781333.0|||COMPLETED|alpine|1||00:01.088|00:28:21|3960K|0:0|1|1
+12781360|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.124|00:00:45||0:0|1|
+12781360.batch|||FAILED|alpine|1||00:00.122|00:00:45|1716K|1:0|1|1
+12781360.extern|||COMPLETED|alpine|1||00:00.002|00:00:45|0|0:0|1|1
+12781385|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:10.038|00:24:11||0:0|1|
+12781385.batch|||COMPLETED|alpine|1||00:10.036|00:24:14|27060K|0:0|1|1
+12781385.extern|||COMPLETED|alpine|1||00:00.002|00:24:11|0|0:0|1|1
+12781767|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:14.158|00:43:07||0:0|1|
+12781767.batch|||CANCELLED|alpine|4||00:14.157|00:43:13|162280K|0:15|1|1
+12781767.extern|||COMPLETED|alpine|4||00:00:00|00:43:07|0|0:0|1|1
+12796816|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:05.308|04:00:14||0:0|1|
+12796816.batch|||CANCELLED|alpine|4||00:05.307|04:00:17|52192K|0:15|1|1
+12796816.extern|||COMPLETED|alpine|4||00:00:00|04:00:14|0|0:0|1|1
+12928709|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|07:34.146|04:00:07||0:0|1|
+12928709.batch|||CANCELLED|alpine|4||07:34.145|04:00:09|762684K|0:15|1|1
+12928709.extern|||COMPLETED|alpine|4||00:00:00|04:00:07|0|0:0|1|1
+12961949|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:09.372|00:49:15||0:0|1|
+12961949.batch|||CANCELLED|alpine|4||00:09.371|00:49:23|168844K|0:15|1|1
+12961949.extern|||COMPLETED|alpine|4||00:00.001|00:49:15|0|0:0|1|1
+13169012|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.507|00:05:21||0:0|1|
+13169012.extern|||COMPLETED|alpine|1||00:00.001|00:05:21|0|0:0|1|1
+13169012.0|||COMPLETED|alpine|1||00:01.506|00:05:20|9108K|0:0|1|1
+13211470|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:01.886|01:00:15||0:0|1|
+13211470.extern|||COMPLETED|alpine|1||00:00:00|01:00:15|0|0:0|1|1
+13211470.0|||COMPLETED|alpine|1||00:01.885|01:00:18|6072K|0:0|1|1
+13380025|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:02.547|00:31:05||1:0|1|
+13380025.extern|||COMPLETED|alpine|1||00:00:00|00:31:05|0|0:0|1|1
+13380025.0|||FAILED|alpine|1||00:02.546|00:31:05|14388K|1:0|1|1
+13428190|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:02.167|00:25:44||0:0|1|
+13428190.extern|||COMPLETED|alpine|1||00:00.001|00:25:44|0|0:0|1|1
+13428190.0|||COMPLETED|alpine|1||00:02.165|00:25:44|7524K|0:0|1|1
+13476999|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.410|00:27:19||0:0|1|
+13476999.extern|||COMPLETED|alpine|1||00:00:00|00:27:19|0|0:0|1|1
+13476999.0|||COMPLETED|alpine|1||00:01.410|00:27:19|6336K|0:0|1|1
+13583497|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.501|00:16:26||9:0|1|
+13583497.extern|||COMPLETED|alpine|1||00:00:00|00:16:26|0|0:0|1|1
+13583497.0|||CANCELLED by 2000886|alpine|1||00:00.500|00:16:26|2772K|0:9|1|1
+13583976|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.040|00:43:00||9:0|1|
+13583976.extern|||COMPLETED|alpine|1||00:00.001|00:43:00|0|0:0|1|1
+13583976.0|||CANCELLED by 2000886|alpine|1||00:01.039|00:43:00|6204K|0:9|1|1
+13617444|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:00.889|01:00:12||0:0|1|
+13617444.extern|||COMPLETED|alpine|1||00:00:00|01:00:12|0|0:0|1|1
+13617444.0|||COMPLETED|alpine|1||00:00.889|01:00:12|6204K|0:0|1|1
+13673653|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.937|00:28:49||9:0|1|
+13673653.extern|||COMPLETED|alpine|1||00:00.001|00:28:49|0|0:0|1|1
+13673653.0|||CANCELLED by 2000886|alpine|1||00:00.935|00:28:49|4488K|0:9|1|1
+13676704|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.003|00:26:59||9:0|1|
+13676704.extern|||COMPLETED|alpine|1||00:00:00|00:26:59|0|0:0|1|1
+13676704.0|||CANCELLED by 2000886|alpine|1||00:01.002|00:26:59|6204K|0:9|1|1
+13700305|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
+13700308|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
+13700311|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
+13707683|dcking@colostate.edu|dckingpgrp@colostate.edu|RUNNING|alpine|1|3840M|00:00:00|00:19:17||0:0|1|
+13707683.extern|||RUNNING|alpine|1||00:00:00|00:19:17||0:0|1|1
+13707683.0|||RUNNING|alpine|1||00:00:00|00:19:17||0:0|1|1
