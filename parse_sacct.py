@@ -165,8 +165,8 @@ def parse_sacct_lines(lines):
             'NNodes': fields[11],
             'NTasks': fields[12]
         }
-        
-        jobs.append(job_data)
+        if job_data['State'] == 'COMPLETED':
+            jobs.append(job_data)
     
     yield last_job_id, jobs
 
