@@ -57,6 +57,8 @@ def format_size(bytes:int) -> str:
 
 def main():
 
+    print_seff_output_tsv_header()
+
     for jid, jobs in parse_from_stdin():
     
         summary = aggregate_sacct_rows(jobs)
@@ -283,6 +285,9 @@ def print_seff_output(job_data):
     efficiencies = calculate_efficiencies(job_data)
     #print_seff_output_description(efficiencies, job_data)
     print_seff_output_tsv(efficiencies, job_data)
+
+def print_seff_output_tsv_header():
+    print_seff_output_tsv(None, None, True)
 
 def print_seff_output_tsv(efficiencies, job_data, print_header=False): 
     if print_header:
