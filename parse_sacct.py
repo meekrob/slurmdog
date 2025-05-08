@@ -4,6 +4,7 @@ import sys
 from typing import Optional, List
 
 from numbers import Number
+from math import nan
 
 from typing import List, Dict, Any
 from collections import defaultdict
@@ -41,32 +42,6 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
     return dict(summary)
 
 
-def aggregate_slurm_steps(step_data: List[dict]) -> dict:
-    summary:dict = {
-        'TotalCPU': 0.0,
-        'Elapsed': 0.0,
-        'MaxRSS': 0,
-        'AllocCPUS': 0,
-        'REQMEM': None
-    }
-
-    for step in step_data:
-        summary['TotalCPU'] += parse_time(step.get('TotalCPU', '0'))
-        summary['Elapsed'] += parse_time(step.get('Elapsed', '0'))
-
-        max_rss_str = step.get('MaxRSS')
-        if max_rss_str:
-            max_rss = convert_to_bytes(max_rss_str)
-            summary['MaxRSS'] = max(summary['MaxRSS'], max_rss)
-
-        summary['AllocCPUS'] += int(step.get('AllocCPUS', 0))
-
-        if not summary['REQMEM']:
-            summary['REQMEM'] = step.get('REQMEM')
-
-    return summary
-
-
 def format_size(bytes:int) -> str:
     units:list[str] = ["B",  "KB", "MB", "GB", "TB", "PB"]
     value:float = float(bytes)
@@ -82,12 +57,7 @@ def format_size(bytes:int) -> str:
 
 def main():
 
-    if len(sys.argv) == 1:
-        job_id = ""
-    else:
-        job_id = sys.argv[1]
-           
-    for jid, jobs in parse_sacct(job_id):
+    for jid, jobs in parse_from_stdin():
     
         summary = aggregate_sacct_rows(jobs)
         print(f"{jid=}")
@@ -148,6 +118,11 @@ def parse_sacct(job_id: str):
     lines = alpine_lines + riviera_lines
 
     # List to hold the parsed job information
+    for jid, jobs in parse_sacct_lines(lines):
+        yield jid, jobs
+
+def parse_from_stdin():
+    lines = sys.stdin.readlines()
     for jid, jobs in parse_sacct_lines(lines):
         yield jid, jobs
 
@@ -218,7 +193,11 @@ def calculate_efficiencies(job_data):
     cpu_wall_time = (parse_time(job_data['Elapsed']) * int(job_data['AllocCPUS']))
 
     # CPU Efficiency
-    cpu_efficiency = (total_cpu_time / cpu_wall_time) * 100 if total_cpu_time else 0
+    try:
+        cpu_efficiency = (total_cpu_time / cpu_wall_time) * 100 if total_cpu_time else 0
+    except ZeroDivisionError:
+        print(f"Warning 0 Elapsed time {job_data['JobID']}", file=sys.stderr)
+        cpu_efficiency = nan
     
     return {
         'JobID': job_data['JobID'],
@@ -303,7 +282,47 @@ def parse_total_cpu_time(time_str: str) -> float:
 
 def print_seff_output(job_data):
     efficiencies = calculate_efficiencies(job_data)
+    #print_seff_output_description(efficiencies, job_data)
+    print_seff_output_tsv(efficiencies, job_data)
 
+def print_seff_output_tsv(efficiencies, job_data, print_header=False): 
+    if print_header:
+        print('JobID',
+              'User',
+              'Group',
+              'State',
+              'ExitCode',
+            'NNodes', 
+            'AllocCPUS',
+            'CPU_Utilized',
+            'CPU_Efficiency',
+            'core_walltime',
+            'Elapsed',
+            'Elapsed_raw',
+            'MaxRSS_Utilized',
+            'REQMEM',
+            'memory_efficiency',
+            sep="\t")
+        
+        return
+
+    print(efficiencies['JobID'], 
+          efficiencies['User'],
+          job_data['Group'],
+          job_data['State'],
+          job_data['ExitCode'],
+          job_data['NNodes'],
+          job_data['AllocCPUS'],
+          seconds_to_timeformat(efficiencies['Total CPU']),
+          seconds_to_timeformat(efficiencies['CPU Wall-time']),
+          job_data['Elapsed'],
+          parse_time(job_data['Elapsed']),
+          format_size(efficiencies['MaxRSS Utilized']),
+          convert_to_bytes(efficiencies['REQMEM']),
+          efficiencies['Memory Efficiency'],
+          sep="\t")
+
+def print_seff_output_description(efficiencies, job_data): 
     print(f"Job ID: {efficiencies['JobID']}")
     print(f"User/Group: {efficiencies['User']}/{job_data['Group']}")
     print(f"State: {job_data['State']} (exit code {job_data['ExitCode']})")
@@ -318,6 +337,8 @@ def print_seff_output(job_data):
     req_mem_bytes = convert_to_bytes(efficiencies['REQMEM'])
 
     print(f"Memory Efficiency: {efficiencies['Memory Efficiency']:.2f}% of {format_size(req_mem_bytes)}")
+    print()
+    sys.stdout.flush()
 
 if __name__ == "__main__":
     main()
