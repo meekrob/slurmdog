@@ -1,274 +1,277 @@
-6114624|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|02:44.935|00:38:50||1:0|1|
-6114624.extern|||COMPLETED|alpine|1||00:00.001|00:38:50|0|0:0|1|1
-6114624.0|||OUT_OF_MEMORY|alpine|1||02:44.934|00:38:50|3406408K|0:125|1|1
-6131952|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:02.324|00:45:39||0:0|1|
-6131952.extern|||COMPLETED|alpine|1||00:00:00|00:45:39|0|0:0|1|1
-6131952.0|||COMPLETED|alpine|1||00:02.323|00:45:39|13200K|0:0|1|1
-6144082|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.697|00:02:00||0:0|1|
-6144082.extern|||COMPLETED|alpine|1||00:00:00|00:02:00|0|0:0|1|1
-6144082.0|||COMPLETED|alpine|1||00:00.696|00:02:00|4224K|0:0|1|1
-6144084|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1|
-6144229|dcking@colostate.edu|dckingpgrp@colostate.edu|OUT_OF_MEMORY|alpine|4|15G|01:07:21|01:08:17||0:125|1|
-6144229.batch|||OUT_OF_MEMORY|alpine|4||01:07:21|01:08:17|15330372K|0:125|1|1
-6144229.extern|||COMPLETED|alpine|4||00:00.001|01:08:17|0|0:0|1|1
-6154811|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.286|00:00:05||0:0|1|
-6154811.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1
-6154811.0|||COMPLETED|alpine|1||00:00.285|00:00:05|0|0:0|1|1
-6240722|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|12|45G|01:59:17|02:00:12||0:0|1|
-6240722.batch|||CANCELLED|alpine|12||01:59:17|02:00:14|16827168K|0:15|1|1
-6240722.extern|||COMPLETED|alpine|12||00:00.001|02:00:13|0|0:0|1|1
-7548679|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.666|00:12:27||0:0|1|
-7548679.extern|||COMPLETED|alpine|1||00:00:00|00:12:27|0|0:0|1|1
-7548679.0|||COMPLETED|alpine|1||00:00.665|00:12:27|2772K|0:0|1|1
-7548859|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.420|00:06:50||0:0|1|
-7548859.extern|||COMPLETED|alpine|1||00:00.001|00:06:50|0|0:0|1|1
-7548859.0|||COMPLETED|alpine|1||00:00.418|00:06:50|2772K|0:0|1|1
-7549039|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.422|00:09:10||0:0|1|
-7549039.extern|||COMPLETED|alpine|1||00:00.001|00:09:10|0|0:0|1|1
-7549039.0|||COMPLETED|alpine|1||00:01.421|00:09:10|2832K|0:0|1|1
-7613891|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.570|00:04:04||0:0|1|
-7613891.extern|||COMPLETED|alpine|1||00:00:00|00:04:04|0|0:0|1|1
-7613891.0|||COMPLETED|alpine|1||00:00.569|00:04:04|2640K|0:0|1|1
-8082822|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.321|00:00:07||0:0|1|
-8082822.extern|||COMPLETED|alpine|1||00:00.001|00:00:07|0|0:0|1|1
-8082822.0|||COMPLETED|alpine|1||00:00.320|00:00:07|0|0:0|1|1
-8082824|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.340|00:00:32||1:0|1|
-8082824.extern|||COMPLETED|alpine|1||00:00:00|00:00:32|0|0:0|1|1
-8082824.0|||FAILED|alpine|1||00:00.339|00:00:32|2724K|1:0|1|1
-8087536|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00:00|00:00:01||0:0|1|
-8087536.batch|||CANCELLED|alpine|1||00:00:00|00:00:01|||1|1
-8087536.extern|||COMPLETED|alpine|1||00:00:00|00:00:01|0|0:0|1|1
-8087537|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.003|00:00:04||0:0|1|
-8087537.batch|||CANCELLED|alpine|1||00:00.001|00:00:09|1452K|0:15|1|1
-8087537.extern|||COMPLETED|alpine|1||00:00.001|00:00:04|0|0:0|1|1
-8087539|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.328|00:00:38||0:0|1|
-8087539.extern|||COMPLETED|alpine|1||00:00.001|00:00:38|0|0:0|1|1
-8087539.0|||COMPLETED|alpine|1||00:00.327|00:00:38|2640K|0:0|1|1
-8087545|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.242|00:00:05||0:0|1|
-8087545.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1
-8087545.0|||COMPLETED|alpine|1||00:00.241|00:00:05|0|0:0|1|1
-8087574|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00:00|00:00:02||0:0|1|
-8087574.extern|||COMPLETED|alpine|1||00:00:00|00:00:02|0|0:0|1|1
-8087575|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00:00|00:00:26||2:0|1|
-8087575.extern|||COMPLETED|alpine|1||00:00:00|00:00:26|0|0:0|1|1
-8087579|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.003|00:00:02||0:0|1|
-8087579.batch|||CANCELLED|alpine|1||00:00.001|00:00:02|528K|0:15|1|1
-8087579.extern|||COMPLETED|alpine|1||00:00.001|00:00:02|0|0:0|1|1
-8166676|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|12|45G|00:02.699|00:00:24||2:0|1|
-8166676.batch|||FAILED|alpine|12||00:02.698|00:00:24|66924K|2:0|1|1
-8166676.extern|||COMPLETED|alpine|12||00:00:00|00:00:24|0|0:0|1|1
-8166686|dcking@colostate.edu|dckingpgrp@colostate.edu|OUT_OF_MEMORY|alpine|12|45G|56:49.453|00:57:31||0:125|1|
-8166686.batch|||OUT_OF_MEMORY|alpine|12||56:49.452|00:57:31|41946860K|0:125|1|1
-8166686.extern|||COMPLETED|alpine|12||00:00.001|00:57:31|0|0:0|1|1
-8306952|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|01:59:40|02:00:19||0:0|1|
-8306952.batch|||CANCELLED|alpine|20||01:59:40|02:00:22|62736180K|0:15|1|1
-8306952.extern|||COMPLETED|alpine|20||00:00.001|02:00:19|0|0:0|1|1
-8381058|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|11:57:49|12:00:09||0:0|1|
-8381058.batch|||CANCELLED|alpine|20||11:57:49|12:00:13|63010964K|0:15|1|1
-8381058.extern|||COMPLETED|alpine|20||00:00.001|12:00:09|0|0:0|1|1
-8390525|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|20|75G|15:05.728|00:15:22||0:0|1|
-8390525.batch|||CANCELLED|alpine|20||15:05.727|00:15:24|15474464K|0:15|1|1
-8390525.extern|||COMPLETED|alpine|20||00:00.001|00:15:22|0|0:0|1|1
-8390658|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|11:57:52|12:00:00||0:0|1|
-8390658.batch|||CANCELLED|alpine|20||11:57:52|12:00:06|77865176K|0:15|1|1
-8390658.extern|||COMPLETED|alpine|20||00:00:00|12:00:01|0|0:0|1|1
-8413745|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|59:41.772|01:00:15||0:0|1|
-8413745.batch|||CANCELLED|alpine|20||59:41.771|01:00:19|64062804K|0:15|1|1
-8413745.extern|||COMPLETED|alpine|20||00:00:00|01:00:15|0|0:0|1|1
-8479534|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1|
-8480274|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.007|00:31:58||9:0|1|
-8480274.extern|||COMPLETED|alpine|1||00:00:00|00:31:58|0|0:0|1|1
-8480274.0|||CANCELLED by 2000886|alpine|1||00:01.006|00:31:58|6204K|0:9|1|1
-8848868|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.630|00:11:28||0:0|1|
-8848868.extern|||COMPLETED|alpine|1||00:00:00|00:11:28|0|0:0|1|1
-8848868.0|||COMPLETED|alpine|1||00:01.629|00:11:28|14916K|0:0|1|1
-8849098|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|11:10.384|01:00:10||0:0|1|
-8849098.extern|||COMPLETED|alpine|4||00:00.001|01:00:10|0|0:0|1|1
-8849098.0|||COMPLETED|alpine|4||11:10.382|01:00:10|4152332K|0:0|1|4
-8849377|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1|
-8849406|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|15G|00:00:00|00:00:00||0:0|1|
-8849411|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|15G|00:00:00|00:00:00||0:0|1|
-8849420|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:24.624|02:00:27||0:0|1|
-8849420.batch|||CANCELLED|alpine|4||00:24.623|02:00:29|456468K|0:15|1|1
-8849420.extern|||COMPLETED|alpine|4||00:00:00|02:00:28|0|0:0|1|1
-8849610|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|4|15G|00:00.629|00:39:00||0:0|1|
-8849610.extern|||COMPLETED|alpine|4||00:00.001|00:39:00|0|0:0|1|1
-8849610.0|||COMPLETED|alpine|4||00:00.628|00:39:00|2904K|0:0|1|4
-9059542|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.024|00:00:11||0:0|1|
-9059542.batch|||COMPLETED|alpine|1||00:00.022|00:00:11|0|0:0|1|1
-9059542.extern|||COMPLETED|alpine|1||00:00.001|00:00:11|0|0:0|1|1
-9059543|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.020|00:00:10||0:0|1|
-9059543.batch|||COMPLETED|alpine|1||00:00.019|00:00:10|0|0:0|1|1
-9059543.extern|||COMPLETED|alpine|1||00:00.001|00:00:10|0|0:0|1|1
-9059544|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:11||0:0|1|
-9059544.batch|||COMPLETED|alpine|1||00:00.019|00:00:11|0|0:0|1|1
-9059544.extern|||COMPLETED|alpine|1||00:00:00|00:00:11|0|0:0|1|1
-9059590|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
-9700133|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.224|00:24:25||0:0|1|
-9700133.extern|||COMPLETED|alpine|1||00:00.001|00:24:25|0|0:0|1|1
-9700133.0|||COMPLETED|alpine|1||00:01.223|00:24:25|15972K|0:0|1|1
-9742844|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:05||0:0|1|
-9742844.batch|||COMPLETED|alpine|1||00:00.014|00:00:05|0|0:0|1|1
-9742844.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1
-9742843_1|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:22||0:0|1|
-9742843_1.batch|||COMPLETED|alpine|1||00:00.017|00:00:22|396K|0:0|1|1
-9742843_1.extern|||COMPLETED|alpine|1||00:00:00|00:00:22|0|0:0|1|1
-9742843_2|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:18||0:0|1|
-9742843_2.batch|||COMPLETED|alpine|1||00:00.016|00:00:18|396K|0:0|1|1
-9742843_2.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1
-9742843_3|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:17||0:0|1|
-9742843_3.batch|||COMPLETED|alpine|1||00:00.018|00:00:17|396K|0:0|1|1
-9742843_3.extern|||COMPLETED|alpine|1||00:00:00|00:00:17|0|0:0|1|1
-9742843_4|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:14||0:0|1|
-9742843_4.batch|||COMPLETED|alpine|1||00:00.018|00:00:14|0|0:0|1|1
-9742843_4.extern|||COMPLETED|alpine|1||00:00:00|00:00:14|0|0:0|1|1
-9742843_5|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:18||0:0|1|
-9742843_5.batch|||COMPLETED|alpine|1||00:00.018|00:00:18|396K|0:0|1|1
-9742843_5.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1
-9742843_6|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:18||0:0|1|
-9742843_6.batch|||COMPLETED|alpine|1||00:00.018|00:00:18|396K|0:0|1|1
-9742843_6.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1
-9742843_7|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:16||0:0|1|
-9742843_7.batch|||COMPLETED|alpine|1||00:00.018|00:00:16|396K|0:0|1|1
-9742843_7.extern|||COMPLETED|alpine|1||00:00:00|00:00:16|0|0:0|1|1
-9742843_8|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:18||0:0|1|
-9742843_8.batch|||COMPLETED|alpine|1||00:00.017|00:00:18|396K|0:0|1|1
-9742843_8.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1
-9742843_9|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:14||0:0|1|
-9742843_9.batch|||COMPLETED|alpine|1||00:00.017|00:00:14|0|0:0|1|1
-9742843_9.extern|||COMPLETED|alpine|1||00:00:00|00:00:14|0|0:0|1|1
-9742843_10|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:13||0:0|1|
-9742843_10.batch|||COMPLETED|alpine|1||00:00.017|00:00:13|0|0:0|1|1
-9742843_10.extern|||COMPLETED|alpine|1||00:00:00|00:00:13|0|0:0|1|1
-9742869|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:16||0:0|1|
-9742869.batch|||COMPLETED|alpine|1||00:00.014|00:00:16|0|0:0|1|1
-9742869.extern|||COMPLETED|alpine|1||00:00:00|00:00:16|0|0:0|1|1
-9742870|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.014|00:00:17||0:0|1|
-9742870.batch|||COMPLETED|alpine|1||00:00.014|00:00:17|396K|0:0|1|1
-9742870.extern|||COMPLETED|alpine|1||00:00:00|00:00:17|0|0:0|1|1
-9742871|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:15||0:0|1|
-9742871.batch|||COMPLETED|alpine|1||00:00.014|00:00:15|0|0:0|1|1
-9742871.extern|||COMPLETED|alpine|1||00:00:00|00:00:15|0|0:0|1|1
-9743718|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.016|00:00:15||0:0|1|
-9743718.batch|||COMPLETED|alpine|1||00:00.015|00:00:15|0|0:0|1|1
-9743718.extern|||COMPLETED|alpine|1||00:00:00|00:00:15|0|0:0|1|1
-9743719|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:11||0:0|1|
-9743719.batch|||COMPLETED|alpine|1||00:00.014|00:00:11|0|0:0|1|1
-9743719.extern|||COMPLETED|alpine|1||00:00:00|00:00:11|0|0:0|1|1
-9743720|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.016|00:00:10||0:0|1|
-9743720.batch|||COMPLETED|alpine|1||00:00.015|00:00:10|0|0:0|1|1
-9743720.extern|||COMPLETED|alpine|1||00:00:00|00:00:10|0|0:0|1|1
-11055007|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:04.451|00:37:26||9:0|1|
-11055007.extern|||COMPLETED|alpine|1||00:00:00|00:37:26|0|0:0|1|1
-11055007.0|||CANCELLED by 2000886|alpine|1||00:04.450|00:37:26|16764K|0:9|1|1
-11055137|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.042|00:07:28||0:0|1|
-11055137.extern|||COMPLETED|alpine|1||00:00.001|00:07:28|0|0:0|1|1
-11055137.0|||COMPLETED|alpine|1||00:01.041|00:07:28|3036K|0:0|1|1
-11965642|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:04.410|12:00:26||0:0|1|
-11965642.batch|||CANCELLED|alpine|1||00:04.410|12:00:33|50104K|0:15|1|1
-11965642.extern|||COMPLETED|alpine|1||00:00:00|12:00:26|0|0:0|1|1
-12051616|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|02:56.346|01:04:38||0:0|1|
-12051616.batch|||OUT_OF_MEMORY|alpine|1||02:56.345|01:04:42|2565880K|0:125|1|1
-12051616.extern|||COMPLETED|alpine|1||00:00:00|01:04:38|0|0:0|1|1
-12060421|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:22.252|12:00:24||0:0|1|
-12060421.batch|||CANCELLED|alpine|1||00:22.251|12:00:28|304804K|0:15|1|1
-12060421.extern|||COMPLETED|alpine|1||00:00:00|12:00:24|0|0:0|1|1
-12109569|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:15.230|01:04:47||0:0|1|
-12109569.batch|||CANCELLED|alpine|1||00:15.229|01:04:53|296436K|0:15|1|1
-12109569.extern|||COMPLETED|alpine|1||00:00:00|01:04:47|0|0:0|1|1
-12171700|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:12.238|00:56:50||0:0|1|
-12171700.batch|||COMPLETED|alpine|1||00:12.237|00:56:50|140472K|0:0|1|1
-12171700.extern|||COMPLETED|alpine|1||00:00:00|00:56:50|0|0:0|1|1
-12248731|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:04.991|00:14:40||0:0|1|
-12248731.extern|||COMPLETED|alpine|1||00:00:00|00:14:40|0|0:0|1|1
-12248731.0|||COMPLETED|alpine|1||00:04.990|00:14:40|16764K|0:0|1|1
-12405073|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:09.561|12:00:27||0:0|1|
-12405073.batch|||CANCELLED|alpine|1||00:09.560|12:00:28|106952K|0:15|1|1
-12405073.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1
-12480707|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|05:40.319|01:39:10||0:0|1|
-12480707.batch|||CANCELLED|alpine|1||05:40.318|01:39:14|158868K|0:15|1|1
-12480707.extern|||COMPLETED|alpine|1||00:00:00|01:39:10|0|0:0|1|1
-12524778|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:32.960|12:00:27||0:0|1|
-12524778.batch|||CANCELLED|alpine|1||00:32.959|12:00:31|274868K|0:15|1|1
-12524778.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1
-12627019|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|4|15G|00:10.206|00:36:32||0:0|1|
-12627019.batch|||COMPLETED|alpine|4||00:10.205|00:36:32|210584K|0:0|1|1
-12627019.extern|||COMPLETED|alpine|4||00:00:00|00:36:32|0|0:0|1|1
-12694350|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.311|04:00:11||0:0|1|
-12694350.batch|||CANCELLED|alpine|4||00:09.310|04:00:14|170988K|0:15|1|1
-12694350.extern|||COMPLETED|alpine|4||00:00:00|04:00:11|0|0:0|1|1
-12734784|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.305|04:00:10||0:0|1|
-12734784.batch|||CANCELLED|alpine|4||00:09.304|04:00:11|111400K|0:15|1|1
-12734784.extern|||COMPLETED|alpine|4||00:00:00|04:00:10|0|0:0|1|1
-12759346|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:06.433|00:16:30||0:0|1|
-12759346.batch|||CANCELLED|alpine|4||00:06.432|00:16:32|104544K|0:15|1|1
-12759346.extern|||COMPLETED|alpine|4||00:00:00|00:16:30|0|0:0|1|1
-12762492|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|20:39.049|04:00:20||0:0|1|
-12762492.batch|||CANCELLED|alpine|4||20:39.048|04:00:23|6713452K|0:15|1|1
-12762492.extern|||COMPLETED|alpine|4||00:00.001|04:00:20|0|0:0|1|1
-12771989|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:18.136|04:00:08||0:0|1|
-12771989.batch|||CANCELLED|alpine|4||00:18.135|04:00:10|212988K|0:15|1|1
-12771989.extern|||COMPLETED|alpine|4||00:00:00|04:00:08|0|0:0|1|1
-12781333|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.089|00:28:21||0:0|1|
-12781333.extern|||COMPLETED|alpine|1||00:00.001|00:28:21|0|0:0|1|1
-12781333.0|||COMPLETED|alpine|1||00:01.088|00:28:21|3960K|0:0|1|1
-12781360|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.124|00:00:45||0:0|1|
-12781360.batch|||FAILED|alpine|1||00:00.122|00:00:45|1716K|1:0|1|1
-12781360.extern|||COMPLETED|alpine|1||00:00.002|00:00:45|0|0:0|1|1
-12781385|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:10.038|00:24:11||0:0|1|
-12781385.batch|||COMPLETED|alpine|1||00:10.036|00:24:14|27060K|0:0|1|1
-12781385.extern|||COMPLETED|alpine|1||00:00.002|00:24:11|0|0:0|1|1
-12781767|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:14.158|00:43:07||0:0|1|
-12781767.batch|||CANCELLED|alpine|4||00:14.157|00:43:13|162280K|0:15|1|1
-12781767.extern|||COMPLETED|alpine|4||00:00:00|00:43:07|0|0:0|1|1
-12796816|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:05.308|04:00:14||0:0|1|
-12796816.batch|||CANCELLED|alpine|4||00:05.307|04:00:17|52192K|0:15|1|1
-12796816.extern|||COMPLETED|alpine|4||00:00:00|04:00:14|0|0:0|1|1
-12928709|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|07:34.146|04:00:07||0:0|1|
-12928709.batch|||CANCELLED|alpine|4||07:34.145|04:00:09|762684K|0:15|1|1
-12928709.extern|||COMPLETED|alpine|4||00:00:00|04:00:07|0|0:0|1|1
-12961949|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:09.372|00:49:15||0:0|1|
-12961949.batch|||CANCELLED|alpine|4||00:09.371|00:49:23|168844K|0:15|1|1
-12961949.extern|||COMPLETED|alpine|4||00:00.001|00:49:15|0|0:0|1|1
-13169012|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.507|00:05:21||0:0|1|
-13169012.extern|||COMPLETED|alpine|1||00:00.001|00:05:21|0|0:0|1|1
-13169012.0|||COMPLETED|alpine|1||00:01.506|00:05:20|9108K|0:0|1|1
-13211470|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:01.886|01:00:15||0:0|1|
-13211470.extern|||COMPLETED|alpine|1||00:00:00|01:00:15|0|0:0|1|1
-13211470.0|||COMPLETED|alpine|1||00:01.885|01:00:18|6072K|0:0|1|1
-13380025|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:02.547|00:31:05||1:0|1|
-13380025.extern|||COMPLETED|alpine|1||00:00:00|00:31:05|0|0:0|1|1
-13380025.0|||FAILED|alpine|1||00:02.546|00:31:05|14388K|1:0|1|1
-13428190|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:02.167|00:25:44||0:0|1|
-13428190.extern|||COMPLETED|alpine|1||00:00.001|00:25:44|0|0:0|1|1
-13428190.0|||COMPLETED|alpine|1||00:02.165|00:25:44|7524K|0:0|1|1
-13476999|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.410|00:27:19||0:0|1|
-13476999.extern|||COMPLETED|alpine|1||00:00:00|00:27:19|0|0:0|1|1
-13476999.0|||COMPLETED|alpine|1||00:01.410|00:27:19|6336K|0:0|1|1
-13583497|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.501|00:16:26||9:0|1|
-13583497.extern|||COMPLETED|alpine|1||00:00:00|00:16:26|0|0:0|1|1
-13583497.0|||CANCELLED by 2000886|alpine|1||00:00.500|00:16:26|2772K|0:9|1|1
-13583976|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.040|00:43:00||9:0|1|
-13583976.extern|||COMPLETED|alpine|1||00:00.001|00:43:00|0|0:0|1|1
-13583976.0|||CANCELLED by 2000886|alpine|1||00:01.039|00:43:00|6204K|0:9|1|1
-13617444|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:00.889|01:00:12||0:0|1|
-13617444.extern|||COMPLETED|alpine|1||00:00:00|01:00:12|0|0:0|1|1
-13617444.0|||COMPLETED|alpine|1||00:00.889|01:00:12|6204K|0:0|1|1
-13673653|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.937|00:28:49||9:0|1|
-13673653.extern|||COMPLETED|alpine|1||00:00.001|00:28:49|0|0:0|1|1
-13673653.0|||CANCELLED by 2000886|alpine|1||00:00.935|00:28:49|4488K|0:9|1|1
-13676704|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.003|00:26:59||9:0|1|
-13676704.extern|||COMPLETED|alpine|1||00:00:00|00:26:59|0|0:0|1|1
-13676704.0|||CANCELLED by 2000886|alpine|1||00:01.002|00:26:59|6204K|0:9|1|1
-13700305|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
-13700308|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
-13700311|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1|
-13707683|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.582|00:19:21||0:0|1|
-13707683.extern|||COMPLETED|alpine|1||00:00:00|00:19:21|0|0:0|1|1
-13707683.0|||COMPLETED|alpine|1||00:00.581|00:19:21|6072K|0:0|1|1
-13708744|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:01.228|01:00:00||0:0|1|
-13708744.extern|||COMPLETED|alpine|1||00:00.001|01:00:00|0|0:0|1|1
-13708744.0|||COMPLETED|alpine|1||00:01.227|01:00:03|7524K|0:0|1|1
-13713346|dcking@colostate.edu|dckingpgrp@colostate.edu|RUNNING|alpine|1|3840M|00:00:00|00:00:39||0:0|1|
-13713346.extern|||RUNNING|alpine|1||00:00:00|00:00:39||0:0|1|1
-13713346.0|||RUNNING|alpine|1||00:00:00|00:00:39||0:0|1|1
+6114624|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|02:44.935|00:38:50||1:0|1||acompile
+6114624.extern|||COMPLETED|alpine|1||00:00.001|00:38:50|0|0:0|1|1|extern
+6114624.0|||OUT_OF_MEMORY|alpine|1||02:44.934|00:38:50|3406408K|0:125|1|1|bash
+6131952|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:02.324|00:45:39||0:0|1||acompile
+6131952.extern|||COMPLETED|alpine|1||00:00:00|00:45:39|0|0:0|1|1|extern
+6131952.0|||COMPLETED|alpine|1||00:02.323|00:45:39|13200K|0:0|1|1|bash
+6144082|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.697|00:02:00||0:0|1||acompile
+6144082.extern|||COMPLETED|alpine|1||00:00:00|00:02:00|0|0:0|1|1|extern
+6144082.0|||COMPLETED|alpine|1||00:00.696|00:02:00|4224K|0:0|1|1|bash
+6144084|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1||conda-create
+6144229|dcking@colostate.edu|dckingpgrp@colostate.edu|OUT_OF_MEMORY|alpine|4|15G|01:07:21|01:08:17||0:125|1||conda-create
+6144229.batch|||OUT_OF_MEMORY|alpine|4||01:07:21|01:08:17|15330372K|0:125|1|1|batch
+6144229.extern|||COMPLETED|alpine|4||00:00.001|01:08:17|0|0:0|1|1|extern
+6154811|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.286|00:00:05||0:0|1||acompile
+6154811.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1|extern
+6154811.0|||COMPLETED|alpine|1||00:00.285|00:00:05|0|0:0|1|1|bash
+6240722|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|12|45G|01:59:17|02:00:12||0:0|1||conda-create
+6240722.batch|||CANCELLED|alpine|12||01:59:17|02:00:14|16827168K|0:15|1|1|batch
+6240722.extern|||COMPLETED|alpine|12||00:00.001|02:00:13|0|0:0|1|1|extern
+7548679|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.666|00:12:27||0:0|1||acompile
+7548679.extern|||COMPLETED|alpine|1||00:00:00|00:12:27|0|0:0|1|1|extern
+7548679.0|||COMPLETED|alpine|1||00:00.665|00:12:27|2772K|0:0|1|1|bash
+7548859|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.420|00:06:50||0:0|1||acompile
+7548859.extern|||COMPLETED|alpine|1||00:00.001|00:06:50|0|0:0|1|1|extern
+7548859.0|||COMPLETED|alpine|1||00:00.418|00:06:50|2772K|0:0|1|1|bash
+7549039|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.422|00:09:10||0:0|1||acompile
+7549039.extern|||COMPLETED|alpine|1||00:00.001|00:09:10|0|0:0|1|1|extern
+7549039.0|||COMPLETED|alpine|1||00:01.421|00:09:10|2832K|0:0|1|1|bash
+7613891|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.570|00:04:04||0:0|1||acompile
+7613891.extern|||COMPLETED|alpine|1||00:00:00|00:04:04|0|0:0|1|1|extern
+7613891.0|||COMPLETED|alpine|1||00:00.569|00:04:04|2640K|0:0|1|1|bash
+8082822|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.321|00:00:07||0:0|1||acompile
+8082822.extern|||COMPLETED|alpine|1||00:00.001|00:00:07|0|0:0|1|1|extern
+8082822.0|||COMPLETED|alpine|1||00:00.320|00:00:07|0|0:0|1|1|bash
+8082824|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.340|00:00:32||1:0|1||acompile
+8082824.extern|||COMPLETED|alpine|1||00:00:00|00:00:32|0|0:0|1|1|extern
+8082824.0|||FAILED|alpine|1||00:00.339|00:00:32|2724K|1:0|1|1|bash
+8087536|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00:00|00:00:01||0:0|1||sinteractive
+8087536.batch|||CANCELLED|alpine|1||00:00:00|00:00:01|||1|1|batch
+8087536.extern|||COMPLETED|alpine|1||00:00:00|00:00:01|0|0:0|1|1|extern
+8087537|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.003|00:00:04||0:0|1||sinteractive
+8087537.batch|||CANCELLED|alpine|1||00:00.001|00:00:09|1452K|0:15|1|1|batch
+8087537.extern|||COMPLETED|alpine|1||00:00.001|00:00:04|0|0:0|1|1|extern
+8087539|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.328|00:00:38||0:0|1||acompile
+8087539.extern|||COMPLETED|alpine|1||00:00.001|00:00:38|0|0:0|1|1|extern
+8087539.0|||COMPLETED|alpine|1||00:00.327|00:00:38|2640K|0:0|1|1|bash
+8087545|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.242|00:00:05||0:0|1||interactive
+8087545.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1|extern
+8087545.0|||COMPLETED|alpine|1||00:00.241|00:00:05|0|0:0|1|1|bash
+8087574|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00:00|00:00:02||0:0|1||interactive
+8087574.extern|||COMPLETED|alpine|1||00:00:00|00:00:02|0|0:0|1|1|extern
+8087575|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00:00|00:00:26||2:0|1||interactive
+8087575.extern|||COMPLETED|alpine|1||00:00:00|00:00:26|0|0:0|1|1|extern
+8087579|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.003|00:00:02||0:0|1||sinteractive
+8087579.batch|||CANCELLED|alpine|1||00:00.001|00:00:02|528K|0:15|1|1|batch
+8087579.extern|||COMPLETED|alpine|1||00:00.001|00:00:02|0|0:0|1|1|extern
+8166676|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|12|45G|00:02.699|00:00:24||2:0|1||create-cutrun
+8166676.batch|||FAILED|alpine|12||00:02.698|00:00:24|66924K|2:0|1|1|batch
+8166676.extern|||COMPLETED|alpine|12||00:00:00|00:00:24|0|0:0|1|1|extern
+8166686|dcking@colostate.edu|dckingpgrp@colostate.edu|OUT_OF_MEMORY|alpine|12|45G|56:49.453|00:57:31||0:125|1||create-cutrun
+8166686.batch|||OUT_OF_MEMORY|alpine|12||56:49.452|00:57:31|41946860K|0:125|1|1|batch
+8166686.extern|||COMPLETED|alpine|12||00:00.001|00:57:31|0|0:0|1|1|extern
+8306952|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|01:59:40|02:00:19||0:0|1||create-cutrun
+8306952.batch|||CANCELLED|alpine|20||01:59:40|02:00:22|62736180K|0:15|1|1|batch
+8306952.extern|||COMPLETED|alpine|20||00:00.001|02:00:19|0|0:0|1|1|extern
+8381058|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|11:57:49|12:00:09||0:0|1||create-cutrun
+8381058.batch|||CANCELLED|alpine|20||11:57:49|12:00:13|63010964K|0:15|1|1|batch
+8381058.extern|||COMPLETED|alpine|20||00:00.001|12:00:09|0|0:0|1|1|extern
+8390525|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|20|75G|15:05.728|00:15:22||0:0|1||create-cutrun
+8390525.batch|||CANCELLED|alpine|20||15:05.727|00:15:24|15474464K|0:15|1|1|batch
+8390525.extern|||COMPLETED|alpine|20||00:00.001|00:15:22|0|0:0|1|1|extern
+8390658|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|11:57:52|12:00:00||0:0|1||create-cutrun
+8390658.batch|||CANCELLED|alpine|20||11:57:52|12:00:06|77865176K|0:15|1|1|batch
+8390658.extern|||COMPLETED|alpine|20||00:00:00|12:00:01|0|0:0|1|1|extern
+8413745|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|20|75G|59:41.772|01:00:15||0:0|1||create-cutrun
+8413745.batch|||CANCELLED|alpine|20||59:41.771|01:00:19|64062804K|0:15|1|1|batch
+8413745.extern|||COMPLETED|alpine|20||00:00:00|01:00:15|0|0:0|1|1|extern
+8479534|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1||sys/dashboard/sys/jupyter_session
+8480274|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.007|00:31:58||9:0|1||acompile
+8480274.extern|||COMPLETED|alpine|1||00:00:00|00:31:58|0|0:0|1|1|extern
+8480274.0|||CANCELLED by 2000886|alpine|1||00:01.006|00:31:58|6204K|0:9|1|1|bash
+8848868|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.630|00:11:28||0:0|1||acompile
+8848868.extern|||COMPLETED|alpine|1||00:00:00|00:11:28|0|0:0|1|1|extern
+8848868.0|||COMPLETED|alpine|1||00:01.629|00:11:28|14916K|0:0|1|1|bash
+8849098|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|11:10.384|01:00:10||0:0|1||acompile
+8849098.extern|||COMPLETED|alpine|4||00:00.001|01:00:10|0|0:0|1|1|extern
+8849098.0|||COMPLETED|alpine|4||11:10.382|01:00:10|4152332K|0:0|1|4|bash
+8849377|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|30G|00:00:00|00:00:00||0:0|1||sys/dashboard/sys/jupyter_session
+8849406|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|15G|00:00:00|00:00:00||0:0|1||sys/dashboard/sys/jupyter_session
+8849411|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|15G|00:00:00|00:00:00||0:0|1||sys/dashboard/sys/jupyter_session
+8849420|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:24.624|02:00:27||0:0|1||sys/dashboard/sys/jupyter_session
+8849420.batch|||CANCELLED|alpine|4||00:24.623|02:00:29|456468K|0:15|1|1|batch
+8849420.extern|||COMPLETED|alpine|4||00:00:00|02:00:28|0|0:0|1|1|extern
+8849610|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|4|15G|00:00.629|00:39:00||0:0|1||acompile
+8849610.extern|||COMPLETED|alpine|4||00:00.001|00:39:00|0|0:0|1|1|extern
+8849610.0|||COMPLETED|alpine|4||00:00.628|00:39:00|2904K|0:0|1|4|bash
+9059542|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.024|00:00:11||0:0|1||sleep_10
+9059542.batch|||COMPLETED|alpine|1||00:00.022|00:00:11|0|0:0|1|1|batch
+9059542.extern|||COMPLETED|alpine|1||00:00.001|00:00:11|0|0:0|1|1|extern
+9059543|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.020|00:00:10||0:0|1||sleep_10
+9059543.batch|||COMPLETED|alpine|1||00:00.019|00:00:10|0|0:0|1|1|batch
+9059543.extern|||COMPLETED|alpine|1||00:00.001|00:00:10|0|0:0|1|1|extern
+9059544|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:11||0:0|1||sleep_10
+9059544.batch|||COMPLETED|alpine|1||00:00.019|00:00:11|0|0:0|1|1|batch
+9059544.extern|||COMPLETED|alpine|1||00:00:00|00:00:11|0|0:0|1|1|extern
+9059590|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1||sleep_10
+9700133|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.224|00:24:25||0:0|1||acompile
+9700133.extern|||COMPLETED|alpine|1||00:00.001|00:24:25|0|0:0|1|1|extern
+9700133.0|||COMPLETED|alpine|1||00:01.223|00:24:25|15972K|0:0|1|1|bash
+9742844|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:05||0:0|1||converge
+9742844.batch|||COMPLETED|alpine|1||00:00.014|00:00:05|0|0:0|1|1|batch
+9742844.extern|||COMPLETED|alpine|1||00:00:00|00:00:05|0|0:0|1|1|extern
+9742843_1|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:22||0:0|1||array
+9742843_1.batch|||COMPLETED|alpine|1||00:00.017|00:00:22|396K|0:0|1|1|batch
+9742843_1.extern|||COMPLETED|alpine|1||00:00:00|00:00:22|0|0:0|1|1|extern
+9742843_2|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:18||0:0|1||array
+9742843_2.batch|||COMPLETED|alpine|1||00:00.016|00:00:18|396K|0:0|1|1|batch
+9742843_2.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1|extern
+9742843_3|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:17||0:0|1||array
+9742843_3.batch|||COMPLETED|alpine|1||00:00.018|00:00:17|396K|0:0|1|1|batch
+9742843_3.extern|||COMPLETED|alpine|1||00:00:00|00:00:17|0|0:0|1|1|extern
+9742843_4|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:14||0:0|1||array
+9742843_4.batch|||COMPLETED|alpine|1||00:00.018|00:00:14|0|0:0|1|1|batch
+9742843_4.extern|||COMPLETED|alpine|1||00:00:00|00:00:14|0|0:0|1|1|extern
+9742843_5|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.019|00:00:18||0:0|1||array
+9742843_5.batch|||COMPLETED|alpine|1||00:00.018|00:00:18|396K|0:0|1|1|batch
+9742843_5.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1|extern
+9742843_6|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:18||0:0|1||array
+9742843_6.batch|||COMPLETED|alpine|1||00:00.018|00:00:18|396K|0:0|1|1|batch
+9742843_6.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1|extern
+9742843_7|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:16||0:0|1||array
+9742843_7.batch|||COMPLETED|alpine|1||00:00.018|00:00:16|396K|0:0|1|1|batch
+9742843_7.extern|||COMPLETED|alpine|1||00:00:00|00:00:16|0|0:0|1|1|extern
+9742843_8|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.018|00:00:18||0:0|1||array
+9742843_8.batch|||COMPLETED|alpine|1||00:00.017|00:00:18|396K|0:0|1|1|batch
+9742843_8.extern|||COMPLETED|alpine|1||00:00:00|00:00:18|0|0:0|1|1|extern
+9742843_9|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:14||0:0|1||array
+9742843_9.batch|||COMPLETED|alpine|1||00:00.017|00:00:14|0|0:0|1|1|batch
+9742843_9.extern|||COMPLETED|alpine|1||00:00:00|00:00:14|0|0:0|1|1|extern
+9742843_10|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.017|00:00:13||0:0|1||array
+9742843_10.batch|||COMPLETED|alpine|1||00:00.017|00:00:13|0|0:0|1|1|batch
+9742843_10.extern|||COMPLETED|alpine|1||00:00:00|00:00:13|0|0:0|1|1|extern
+9742869|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:16||0:0|1||sleep_10
+9742869.batch|||COMPLETED|alpine|1||00:00.014|00:00:16|0|0:0|1|1|batch
+9742869.extern|||COMPLETED|alpine|1||00:00:00|00:00:16|0|0:0|1|1|extern
+9742870|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.014|00:00:17||0:0|1||sleep_10
+9742870.batch|||COMPLETED|alpine|1||00:00.014|00:00:17|396K|0:0|1|1|batch
+9742870.extern|||COMPLETED|alpine|1||00:00:00|00:00:17|0|0:0|1|1|extern
+9742871|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:15||0:0|1||sleep_10
+9742871.batch|||COMPLETED|alpine|1||00:00.014|00:00:15|0|0:0|1|1|batch
+9742871.extern|||COMPLETED|alpine|1||00:00:00|00:00:15|0|0:0|1|1|extern
+9743718|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.016|00:00:15||0:0|1||sleep_10
+9743718.batch|||COMPLETED|alpine|1||00:00.015|00:00:15|0|0:0|1|1|batch
+9743718.extern|||COMPLETED|alpine|1||00:00:00|00:00:15|0|0:0|1|1|extern
+9743719|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.015|00:00:11||0:0|1||sleep_10
+9743719.batch|||COMPLETED|alpine|1||00:00.014|00:00:11|0|0:0|1|1|batch
+9743719.extern|||COMPLETED|alpine|1||00:00:00|00:00:11|0|0:0|1|1|extern
+9743720|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.016|00:00:10||0:0|1||sleep_10
+9743720.batch|||COMPLETED|alpine|1||00:00.015|00:00:10|0|0:0|1|1|batch
+9743720.extern|||COMPLETED|alpine|1||00:00:00|00:00:10|0|0:0|1|1|extern
+11055007|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:04.451|00:37:26||9:0|1||acompile
+11055007.extern|||COMPLETED|alpine|1||00:00:00|00:37:26|0|0:0|1|1|extern
+11055007.0|||CANCELLED by 2000886|alpine|1||00:04.450|00:37:26|16764K|0:9|1|1|bash
+11055137|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.042|00:07:28||0:0|1||acompile
+11055137.extern|||COMPLETED|alpine|1||00:00.001|00:07:28|0|0:0|1|1|extern
+11055137.0|||COMPLETED|alpine|1||00:01.041|00:07:28|3036K|0:0|1|1|bash
+11965642|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:04.410|12:00:26||0:0|1||sys/dashboard/sys/jupyter_session
+11965642.batch|||CANCELLED|alpine|1||00:04.410|12:00:33|50104K|0:15|1|1|batch
+11965642.extern|||COMPLETED|alpine|1||00:00:00|12:00:26|0|0:0|1|1|extern
+12051616|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|02:56.346|01:04:38||0:0|1||sys/dashboard/sys/jupyter_session
+12051616.batch|||OUT_OF_MEMORY|alpine|1||02:56.345|01:04:42|2565880K|0:125|1|1|batch
+12051616.extern|||COMPLETED|alpine|1||00:00:00|01:04:38|0|0:0|1|1|extern
+12060421|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:22.252|12:00:24||0:0|1||sys/dashboard/sys/jupyter_session
+12060421.batch|||CANCELLED|alpine|1||00:22.251|12:00:28|304804K|0:15|1|1|batch
+12060421.extern|||COMPLETED|alpine|1||00:00:00|12:00:24|0|0:0|1|1|extern
+12109569|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:15.230|01:04:47||0:0|1||sys/dashboard/sys/jupyter_session
+12109569.batch|||CANCELLED|alpine|1||00:15.229|01:04:53|296436K|0:15|1|1|batch
+12109569.extern|||COMPLETED|alpine|1||00:00:00|01:04:47|0|0:0|1|1|extern
+12171700|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:12.238|00:56:50||0:0|1||sys/dashboard/sys/jupyter_session
+12171700.batch|||COMPLETED|alpine|1||00:12.237|00:56:50|140472K|0:0|1|1|batch
+12171700.extern|||COMPLETED|alpine|1||00:00:00|00:56:50|0|0:0|1|1|extern
+12248731|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:04.991|00:14:40||0:0|1||acompile
+12248731.extern|||COMPLETED|alpine|1||00:00:00|00:14:40|0|0:0|1|1|extern
+12248731.0|||COMPLETED|alpine|1||00:04.990|00:14:40|16764K|0:0|1|1|bash
+12405073|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:09.561|12:00:27||0:0|1||sys/dashboard/sys/jupyter_session
+12405073.batch|||CANCELLED|alpine|1||00:09.560|12:00:28|106952K|0:15|1|1|batch
+12405073.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1|extern
+12480707|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|05:40.319|01:39:10||0:0|1||sys/dashboard/sys/jupyter_session
+12480707.batch|||CANCELLED|alpine|1||05:40.318|01:39:14|158868K|0:15|1|1|batch
+12480707.extern|||COMPLETED|alpine|1||00:00:00|01:39:10|0|0:0|1|1|extern
+12524778|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:32.960|12:00:27||0:0|1||sys/dashboard/sys/jupyter_session
+12524778.batch|||CANCELLED|alpine|1||00:32.959|12:00:31|274868K|0:15|1|1|batch
+12524778.extern|||COMPLETED|alpine|1||00:00:00|12:00:27|0|0:0|1|1|extern
+12627019|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|4|15G|00:10.206|00:36:32||0:0|1||sys/dashboard/sys/jupyter_session
+12627019.batch|||COMPLETED|alpine|4||00:10.205|00:36:32|210584K|0:0|1|1|batch
+12627019.extern|||COMPLETED|alpine|4||00:00:00|00:36:32|0|0:0|1|1|extern
+12694350|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.311|04:00:11||0:0|1||sys/dashboard/sys/jupyter_session
+12694350.batch|||CANCELLED|alpine|4||00:09.310|04:00:14|170988K|0:15|1|1|batch
+12694350.extern|||COMPLETED|alpine|4||00:00:00|04:00:11|0|0:0|1|1|extern
+12734784|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:09.305|04:00:10||0:0|1||sys/dashboard/sys/jupyter_session
+12734784.batch|||CANCELLED|alpine|4||00:09.304|04:00:11|111400K|0:15|1|1|batch
+12734784.extern|||COMPLETED|alpine|4||00:00:00|04:00:10|0|0:0|1|1|extern
+12759346|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:06.433|00:16:30||0:0|1||sys/dashboard/sys/jupyter_session
+12759346.batch|||CANCELLED|alpine|4||00:06.432|00:16:32|104544K|0:15|1|1|batch
+12759346.extern|||COMPLETED|alpine|4||00:00:00|00:16:30|0|0:0|1|1|extern
+12762492|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|20:39.049|04:00:20||0:0|1||sys/dashboard/sys/jupyter_session
+12762492.batch|||CANCELLED|alpine|4||20:39.048|04:00:23|6713452K|0:15|1|1|batch
+12762492.extern|||COMPLETED|alpine|4||00:00.001|04:00:20|0|0:0|1|1|extern
+12771989|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:18.136|04:00:08||0:0|1||sys/dashboard/sys/jupyter_session
+12771989.batch|||CANCELLED|alpine|4||00:18.135|04:00:10|212988K|0:15|1|1|batch
+12771989.extern|||COMPLETED|alpine|4||00:00:00|04:00:08|0|0:0|1|1|extern
+12781333|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.089|00:28:21||0:0|1||acompile
+12781333.extern|||COMPLETED|alpine|1||00:00.001|00:28:21|0|0:0|1|1|extern
+12781333.0|||COMPLETED|alpine|1||00:01.088|00:28:21|3960K|0:0|1|1|bash
+12781360|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:00.124|00:00:45||0:0|1||sinteractive
+12781360.batch|||FAILED|alpine|1||00:00.122|00:00:45|1716K|1:0|1|1|batch
+12781360.extern|||COMPLETED|alpine|1||00:00.002|00:00:45|0|0:0|1|1|extern
+12781385|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|1|3840M|00:10.038|00:24:11||0:0|1||sinteractive
+12781385.batch|||COMPLETED|alpine|1||00:10.036|00:24:14|27060K|0:0|1|1|batch
+12781385.extern|||COMPLETED|alpine|1||00:00.002|00:24:11|0|0:0|1|1|extern
+12781767|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:14.158|00:43:07||0:0|1||sys/dashboard/sys/jupyter_session
+12781767.batch|||CANCELLED|alpine|4||00:14.157|00:43:13|162280K|0:15|1|1|batch
+12781767.extern|||COMPLETED|alpine|4||00:00:00|00:43:07|0|0:0|1|1|extern
+12796816|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|00:05.308|04:00:14||0:0|1||sys/dashboard/sys/jupyter_session
+12796816.batch|||CANCELLED|alpine|4||00:05.307|04:00:17|52192K|0:15|1|1|batch
+12796816.extern|||COMPLETED|alpine|4||00:00:00|04:00:14|0|0:0|1|1|extern
+12928709|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|4|15G|07:34.146|04:00:07||0:0|1||sys/dashboard/sys/jupyter_session
+12928709.batch|||CANCELLED|alpine|4||07:34.145|04:00:09|762684K|0:15|1|1|batch
+12928709.extern|||COMPLETED|alpine|4||00:00:00|04:00:07|0|0:0|1|1|extern
+12961949|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|4|15G|00:09.372|00:49:15||0:0|1||sys/dashboard/sys/jupyter_session
+12961949.batch|||CANCELLED|alpine|4||00:09.371|00:49:23|168844K|0:15|1|1|batch
+12961949.extern|||COMPLETED|alpine|4||00:00.001|00:49:15|0|0:0|1|1|extern
+13169012|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.507|00:05:21||0:0|1||acompile
+13169012.extern|||COMPLETED|alpine|1||00:00.001|00:05:21|0|0:0|1|1|extern
+13169012.0|||COMPLETED|alpine|1||00:01.506|00:05:20|9108K|0:0|1|1|bash
+13211470|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:01.886|01:00:15||0:0|1||acompile
+13211470.extern|||COMPLETED|alpine|1||00:00:00|01:00:15|0|0:0|1|1|extern
+13211470.0|||COMPLETED|alpine|1||00:01.885|01:00:18|6072K|0:0|1|1|bash
+13380025|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:02.547|00:31:05||1:0|1||acompile
+13380025.extern|||COMPLETED|alpine|1||00:00:00|00:31:05|0|0:0|1|1|extern
+13380025.0|||FAILED|alpine|1||00:02.546|00:31:05|14388K|1:0|1|1|bash
+13428190|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:02.167|00:25:44||0:0|1||acompile
+13428190.extern|||COMPLETED|alpine|1||00:00.001|00:25:44|0|0:0|1|1|extern
+13428190.0|||COMPLETED|alpine|1||00:02.165|00:25:44|7524K|0:0|1|1|bash
+13476999|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:01.410|00:27:19||0:0|1||acompile
+13476999.extern|||COMPLETED|alpine|1||00:00:00|00:27:19|0|0:0|1|1|extern
+13476999.0|||COMPLETED|alpine|1||00:01.410|00:27:19|6336K|0:0|1|1|bash
+13583497|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.501|00:16:26||9:0|1||acompile
+13583497.extern|||COMPLETED|alpine|1||00:00:00|00:16:26|0|0:0|1|1|extern
+13583497.0|||CANCELLED by 2000886|alpine|1||00:00.500|00:16:26|2772K|0:9|1|1|bash
+13583976|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.040|00:43:00||9:0|1||acompile
+13583976.extern|||COMPLETED|alpine|1||00:00.001|00:43:00|0|0:0|1|1|extern
+13583976.0|||CANCELLED by 2000886|alpine|1||00:01.039|00:43:00|6204K|0:9|1|1|bash
+13617444|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:00.889|01:00:12||0:0|1||acompile
+13617444.extern|||COMPLETED|alpine|1||00:00:00|01:00:12|0|0:0|1|1|extern
+13617444.0|||COMPLETED|alpine|1||00:00.889|01:00:12|6204K|0:0|1|1|bash
+13673653|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:00.937|00:28:49||9:0|1||acompile
+13673653.extern|||COMPLETED|alpine|1||00:00.001|00:28:49|0|0:0|1|1|extern
+13673653.0|||CANCELLED by 2000886|alpine|1||00:00.935|00:28:49|4488K|0:9|1|1|bash
+13676704|dcking@colostate.edu|dckingpgrp@colostate.edu|FAILED|alpine|1|3840M|00:01.003|00:26:59||9:0|1||acompile
+13676704.extern|||COMPLETED|alpine|1||00:00:00|00:26:59|0|0:0|1|1|extern
+13676704.0|||CANCELLED by 2000886|alpine|1||00:01.002|00:26:59|6204K|0:9|1|1|bash
+13700305|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1||acompile
+13700308|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1||acompile
+13700311|dcking@colostate.edu|dckingpgrp@colostate.edu|CANCELLED by 2000886|alpine|0|3840M|00:00:00|00:00:00||0:0|1||acompile
+13707683|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.582|00:19:21||0:0|1||acompile
+13707683.extern|||COMPLETED|alpine|1||00:00:00|00:19:21|0|0:0|1|1|extern
+13707683.0|||COMPLETED|alpine|1||00:00.581|00:19:21|6072K|0:0|1|1|bash
+13708744|dcking@colostate.edu|dckingpgrp@colostate.edu|TIMEOUT|alpine|1|3840M|00:01.228|01:00:00||0:0|1||acompile
+13708744.extern|||COMPLETED|alpine|1||00:00.001|01:00:00|0|0:0|1|1|extern
+13708744.0|||COMPLETED|alpine|1||00:01.227|01:00:03|7524K|0:0|1|1|bash
+13713346|dcking@colostate.edu|dckingpgrp@colostate.edu|COMPLETED|alpine|1|3840M|00:00.873|00:21:30||0:0|1||acompile
+13713346.extern|||COMPLETED|alpine|1||00:00.001|00:21:30|0|0:0|1|1|extern
+13713346.0|||COMPLETED|alpine|1||00:00.872|00:21:30|6072K|0:0|1|1|bash
+13715211|dcking@colostate.edu|dckingpgrp@colostate.edu|RUNNING|alpine|1|3840M|00:00:00|00:02:21||0:0|1||acompile
+13715211.extern|||RUNNING|alpine|1||00:00:00|00:02:21||0:0|1|1|extern
+13715211.0|||RUNNING|alpine|1||00:00:00|00:02:21||0:0|1|1|bash
