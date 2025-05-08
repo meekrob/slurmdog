@@ -60,7 +60,6 @@ def main():
     for jid, jobs in parse_from_stdin():
     
         summary = aggregate_sacct_rows(jobs)
-        print(f"{jid=}")
         print_seff_output(summary)
 
         #for job in jobs:
