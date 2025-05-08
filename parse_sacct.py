@@ -22,21 +22,21 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     # Aggregated fields
     total_cpu = 0.0
-    #elapsed = 0.0
+    elapsed = 0.0
     max_rss = 0
 
     for step in steps[1:]:
         if step.get("TotalCPU"):
             total_cpu += parse_time(step["TotalCPU"])
-        #if step.get("Elapsed"):
-        #    elapsed += parse_time(step["Elapsed"])
+        if step.get("Elapsed"):
+            elapsed =  max(elapsed, parse_time(step["Elapsed"]))
         if step.get("MaxRSS"):
             mem = convert_to_bytes(step["MaxRSS"])
             if mem is not None:
                 max_rss = max(max_rss, mem)
 
     summary["TotalCPU"] = total_cpu
-    #summary["Elapsed"] = elapsed
+    summary["Elapsed"] = seconds_to_timeformat(int(elapsed))
     summary["MaxRSS"] = max_rss
 
     return dict(summary)
@@ -165,8 +165,9 @@ def parse_sacct_lines(lines):
             'NNodes': fields[11],
             'NTasks': fields[12]
         }
-        if job_data['State'] == 'COMPLETED':
-            jobs.append(job_data)
+            
+        jobs.append(job_data)
+
     
     yield last_job_id, jobs
 
@@ -318,6 +319,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
           job_data['NNodes'],
           job_data['AllocCPUS'],
           seconds_to_timeformat(efficiencies['Total CPU']),
+          efficiencies['CPU Efficiency'],
           seconds_to_timeformat(efficiencies['CPU Wall-time']),
           job_data['Elapsed'],
           parse_time(job_data['Elapsed']),
