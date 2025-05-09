@@ -68,8 +68,8 @@ def main():
 
     for jid, jobs in parse_from_stdin():
     
-        summary = aggregate_sacct_rows(jobs)
-        print_seff_output(summary)
+        steps_aggregated  = aggregate_sacct_rows(jobs) # yields an aggregation of (usually) 3 lines of input
+        print_seff_output(steps_aggregated)
 
         #for job in jobs:
         #   print(job)
@@ -317,6 +317,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
             'MaxRSS_Utilized_raw',
             'REQMEM',
             'memory_efficiency',
+            'JobNames',
             sep="\t")
         
         return
@@ -337,6 +338,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
           efficiencies['MaxRSS Utilized'],
           convert_to_bytes(efficiencies['REQMEM']),
           efficiencies['Memory Efficiency'],
+          job_data['JobNames'],
           sep="\t")
 
 def print_seff_output_description(efficiencies, job_data): 
