@@ -24,6 +24,7 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
     total_cpu = 0.0
     elapsed = 0.0
     max_rss = 0
+    jobnames = []
 
     for step in steps[1:]:
         if step.get("TotalCPU"):
@@ -34,10 +35,16 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
             mem = convert_to_bytes(step["MaxRSS"])
             if mem is not None:
                 max_rss = max(max_rss, mem)
+        if step.get("JobName"):
+            jobnames.append(step["JobName"])
 
     summary["TotalCPU"] = total_cpu
     summary["Elapsed"] = seconds_to_timeformat(int(elapsed))
     summary["MaxRSS"] = max_rss
+
+    if top_level and top_level.get('JobName'):
+        jobnames.insert(0, top_level['JobName'])
+    summary["JobNames"] = ",".join(jobnames)
 
     return dict(summary)
 
@@ -140,7 +147,7 @@ def parse_sacct_lines(lines):
     last_job_id = None
     # Parse each line
     for line in lines:
-        fields = line.split('|')
+        fields = line.strip().split('|')
         job_id_prefix = get_job_id_prefix(fields[0])
 
         if last_job_id is not None and job_id_prefix != last_job_id:
@@ -164,7 +171,8 @@ def parse_sacct_lines(lines):
             'MaxRSS': fields[9],
             'ExitCode': fields[10],
             'NNodes': fields[11],
-            'NTasks': fields[12]
+            'NTasks': fields[12],
+            'JobName': fields[13]
         }
             
         jobs.append(job_data)
