@@ -86,6 +86,7 @@ def convert_to_bytes(mem_str: str) -> int:
         # Assume it's already in bytes if there's no suffix
         return int(float(mem_str))
 
+# THIS IS NOW DEFUNCT IN ORDER TO READ INPUT FROM STDIN
 def parse_sacct(job_id: str):
 
     if job_id != "":
@@ -305,6 +306,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
             'Elapsed',
             'Elapsed_raw',
             'MaxRSS_Utilized',
+            'MaxRSS_Utilized_raw',
             'REQMEM',
             'memory_efficiency',
             sep="\t")
@@ -324,6 +326,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
           job_data['Elapsed'],
           parse_time(job_data['Elapsed']),
           format_size(efficiencies['MaxRSS Utilized']),
+          efficiencies['MaxRSS Utilized'],
           convert_to_bytes(efficiencies['REQMEM']),
           efficiencies['Memory Efficiency'],
           sep="\t")
