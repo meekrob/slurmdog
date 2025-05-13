@@ -17,7 +17,20 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     if top_level:
         # Take directly from top-level step
-        for field in ["JobID", "AllocCPUS", "REQMEM", "Elapsed", "NTasks", "NNodes", "User", "Group", "State", "Cluster", "ExitCode"]:
+        for field in ["JobID", 
+                      "AllocCPUS", 
+                      "REQMEM", 
+                      "Elapsed", 
+                      "NTasks",
+                        "NNodes", 
+                        "User", 
+                        "Group", 
+                        "State",
+                        "Cluster", 
+                        "ExitCode",
+                        "Submit",
+                        "Start",
+                        "End"]:
             summary[field] = top_level.get(field)
 
     # Aggregated fields
@@ -147,6 +160,9 @@ def parse_sacct_lines(lines):
     last_job_id = None
     # Parse each line
     for line in lines:
+        if line.find('JobID') >= 0:
+            # this is a header
+            continue
         fields = line.strip().split('|')
         job_id_prefix = get_job_id_prefix(fields[0])
 
@@ -172,7 +188,10 @@ def parse_sacct_lines(lines):
             'ExitCode': fields[10],
             'NNodes': fields[11],
             'NTasks': fields[12],
-            'JobName': fields[13]
+            'JobName': fields[13],
+            'Submit': fields[14],
+            'Start': fields[15],
+            'End': fields[16]
         }
             
         jobs.append(job_data)
@@ -220,7 +239,10 @@ def calculate_efficiencies(job_data):
         'CPU Wall-time': cpu_wall_time,
         'Memory Utilized': max_rss_utilized,
         'Memory Efficiency': memory_efficiency,
-        'REQMEM': job_data['REQMEM']
+        'REQMEM': job_data['REQMEM'],
+        'Submit': job_data['Submit'],
+        'Start': job_data['Start'],
+        'End': job_data['End']
     }
 
 # Function to convert time strings like "00:20:00" into seconds
@@ -318,6 +340,9 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
             'REQMEM',
             'memory_efficiency',
             'JobNames',
+            'Submit',
+            'Start',
+            'End',
             sep="\t")
         
         return
@@ -339,6 +364,9 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
           convert_to_bytes(efficiencies['REQMEM']),
           efficiencies['Memory Efficiency'],
           job_data['JobNames'],
+          efficiencies['Submit'],
+          efficiencies['Start'],
+          efficiencies['End'],
           sep="\t")
 
 def print_seff_output_description(efficiencies, job_data): 
