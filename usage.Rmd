@@ -50,7 +50,8 @@ This results from something like:
 Read into `parse_sacct.py` in order to aggregate resource data from various job steps.
 
 ```{r data}
-nt = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
+nt_raw = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
+nt = nt_raw
 nt %<>% mutate(
   CPU_Utilized_Seconds = time2seconds(CPU_Utilized),
   allocMemGB = AllocCPUS * GB_PER_CPU,
@@ -68,13 +69,17 @@ cat(sprintf("\t%d jobs with zero elapsed seconds (out of %d total)\n", n_zero_ru
 cat(sprintf("\t%d jobs with zero memory used (out of %d total)\n", n_zero_memory_jobs,  nrow(nt)))
 cat(sprintf("\t%d jobs with zero CPU used (out of %d total)\n", n_zero_CPU_jobs,  nrow(nt)))
 
+# filters
 nt %<>% filter(!grepl("acompile", JobNames))
-nt %<>% filter(Elapsed_raw > 0 & MaxRSS_Utilized_raw > 0 & CPU_Utilized_Seconds > 0)
+nt %<>% filter(Elapsed_raw > 0 | MaxRSS_Utilized_raw > 0 | CPU_Utilized_Seconds > 0)
+
+# subsets
 nt %>% filter(grepl("bigfish", JobNames)) -> nt_cebigfish
 nt %>% filter(grepl("jupyter", JobNames)) -> nt_jupyter
 save_nt_jupyter = nt_jupyter # just temporary to get through edits via chatGPT
-table(nt$State)
 
+table(nt$State)
+table(nt$User)
 ```
 
 ## Including Plots
@@ -95,7 +100,8 @@ if(DO_ONLY_JUPYTER) # Jupyterlab jobs
 }else # all jobs
 {
   nt_jupyter <- nt %>%
-  #filter(AllocCPUS < 48) %>%
+  filter(AllocCPUS < 48) %>%
+  filter(State != "RUNNING") %>%
   mutate(Type = "Single Job", # for display
          MaxRSS_Utilized_raw_GB = MaxRSS_Utilized_raw / 2^30)
 }
@@ -104,10 +110,13 @@ max_cpu <- max(nt_jupyter$AllocCPUS)
 print(max_cpu)
 
 
-# Create a new data frame for the shaded area across full x-range
+# Create a new data frame for the shaded area across full x-range, limit y-range if there will be a lot of empty space
+top_mem_used = max(nt_jupyter$MaxRSS_Utilized_raw_GB)
+visible_ymax = min(top_mem_used*1.1, max_cpu*3.75)
+AllocMemGB = (1:max_cpu) * 3.75
 alloc_mem_df <- data.frame(
   AllocCPUS = 1:max_cpu,
-  AllocMemGB = (1:max_cpu) * 3.75,
+  AllocMemGB = ifelse(AllocMemGB < visible_ymax, AllocMemGB, visible_ymax), 
   Type = "Allocated Memory"
 )
 
@@ -133,13 +142,15 @@ ggplot() +
                 fill = Type), alpha = 1
             ) +
   # usage for each job
-  geom_point(data = nt_jupyter,
+  geom_jitter(data = nt_jupyter,
              aes(x = AllocCPUS, 
                  y = MaxRSS_Utilized_raw_GB, 
-                 color = Type
-                 ), size = 1.5
+                 color = Type,
+                 width = .005,
+                 #shape = State
+                 ), size = 2
              ) + 
-  facet_wrap(~State) + 
+  facet_wrap(~User) + 
   scale_x_continuous(breaks= seq(1,max_cpu)) + 
   scale_y_continuous(breaks = 4 * seq(1,max_cpu, by=2)) +
   scale_fill_manual(values = c("Allocated Memory" = "lightblue")) +
@@ -147,10 +158,22 @@ ggplot() +
   labs(x = "Allocated CPUs", y = "Memory Utilized (GB)",
        fill = "", color = "") +
   theme_classic() +
-  theme(panel.grid.major.y = element_line(color = "gray80"),
+  theme(
+        plot.title = element_text(size = 24, hjust = 0.5),
+        # axis font sizes
+        axis.title.x = element_text(size = 18),   # X-axis title
+        axis.title.y = element_text(size = 18),   # Y-axis title
+        axis.text.x = element_text(size = 16),    # X-axis tick labels
+        axis.text.y = element_text(size = 14) ,    # Y-axis tick labels
+        # legend font size
+        legend.text = element_text(size = 20, face = "bold"),
+        # grid
+        panel.grid.major.y = element_line(color = "gray80"),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
+        strip.text = element_text(size = 16),
+    
         legend.position = "right") + 
   ggtitle(label=label)
 
@@ -213,6 +236,7 @@ summarize_state = function(x) {
 nt_array_summary <- nt_array_jobs %>% 
   group_by(array_base_id) %>% 
   summarize(overall_start = min(start_time), 
+            user = first(User), 
             njobs = n(),
             overall_end = max(end_time), 
             overall_wall = difftime(overall_end, overall_start),
