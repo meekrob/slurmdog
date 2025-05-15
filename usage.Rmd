@@ -1,0 +1,255 @@
+---
+title: "Usage reports"
+author: "David C. King"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+##### libraries
+library(magrittr)
+library(ggplot2)
+library(lubridate)
+
+#### constants
+GB_PER_CPU = 3.75 # this is an alpine-specific value
+
+#### functions
+to_time_obj = function(str) { # for Submit,Start,End data
+  #as.POSIXct(str, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC") 
+  ymd_hms(str, tz = "UTC")
+}
+
+time2seconds <- function(column) {
+  unlist(
+    lapply(
+      strsplit(column, "[-:]"),
+      time2seconds_time_lst
+    )
+  )
+}
+
+time2seconds_time_lst <- function(time_lst) {
+  coef = c(1,60,60*60,60*60*24) 
+  revved = rev(time_lst)
+  x = as.integer(revved)
+  X = sum(x * coef[1:length(x)])
+  X
+}
+
+```
+
+## Data
+
+This results from something like:
+
+`sacct -P -n -a --format JobID,User,Group,State,Cluster,AllocCPUS,REQMEM,TotalCPU,Elapsed,MaxRSS,ExitCode,NNodes,NTasks,JobName,Start,Submit,End $@`
+
+Read into `parse_sacct.py` in order to aggregate resource data from various job steps.
+
+```{r data}
+nt = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
+nt %<>% mutate(
+  CPU_Utilized_Seconds = time2seconds(CPU_Utilized),
+  allocMemGB = AllocCPUS * GB_PER_CPU,
+  core_walltime_seconds = time2seconds(core_walltime)
+)
+  
+nt[grepl("CANCELLED by", nt$State), "State"] <- "CANCELLED"
+
+n_acompile_jobs = nt %>% filter(grepl("acompile", JobNames)) %>% nrow()
+n_zero_runtime_jobs = nt %>% filter(Elapsed_raw == 0) %>% nrow()
+n_zero_memory_jobs = nt %>% filter(MaxRSS_Utilized_raw == 0) %>% nrow()
+n_zero_CPU_jobs = nt %>% filter(CPU_Utilized_Seconds == 0) %>% nrow()
+cat(sprintf("\t%d 'acompile' jobs (out of %d total)\n", n_acompile_jobs, nrow(nt)))
+cat(sprintf("\t%d jobs with zero elapsed seconds (out of %d total)\n", n_zero_runtime_jobs,  nrow(nt)))
+cat(sprintf("\t%d jobs with zero memory used (out of %d total)\n", n_zero_memory_jobs,  nrow(nt)))
+cat(sprintf("\t%d jobs with zero CPU used (out of %d total)\n", n_zero_CPU_jobs,  nrow(nt)))
+
+nt %<>% filter(!grepl("acompile", JobNames))
+nt %<>% filter(Elapsed_raw > 0 & MaxRSS_Utilized_raw > 0 & CPU_Utilized_Seconds > 0)
+nt %>% filter(grepl("bigfish", JobNames)) -> nt_cebigfish
+nt %>% filter(grepl("jupyter", JobNames)) -> nt_jupyter
+save_nt_jupyter = nt_jupyter # just temporary to get through edits via chatGPT
+table(nt$State)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r jupyter, echo=FALSE}
+# https://chatgpt.com/share/6824ddbb-f720-8010-a95b-3710a88fd9cf
+
+DO_ONLY_JUPYTER=T
+
+if(DO_ONLY_JUPYTER) # Jupyterlab jobs
+{
+  nt_jupyter <- save_nt_jupyter %>% 
+  filter(State != "FAILED") %>% 
+  mutate(Type = "Single Job", # for display
+         MaxRSS_Utilized_raw_GB = MaxRSS_Utilized_raw / 2^30)
+}else # all jobs
+{
+  nt_jupyter <- nt %>%
+  #filter(AllocCPUS < 48) %>%
+  mutate(Type = "Single Job", # for display
+         MaxRSS_Utilized_raw_GB = MaxRSS_Utilized_raw / 2^30)
+}
+  
+max_cpu <- max(nt_jupyter$AllocCPUS)
+print(max_cpu)
+
+
+# Create a new data frame for the shaded area across full x-range
+alloc_mem_df <- data.frame(
+  AllocCPUS = 1:max_cpu,
+  AllocMemGB = (1:max_cpu) * 3.75,
+  Type = "Allocated Memory"
+)
+
+# plot labels
+if (DO_ONLY_JUPYTER)
+{
+  label="Onishlab_users jobs (1 year), Jupyterlab, Memory vs CPU, across State"
+  savefunc <- function() {ggsave("mem_versus_CPU_by_State_jupyter.pdf", width=20)}
+
+}else
+{
+  label="Onishlab_users jobs (1 year), All Jobs, Memory vs CPU, across State"
+  savefunc <- function() {ggsave("mem_versus_CPU_by_State_alljobs.pdf", height=21, width=40)}
+}
+
+ggplot() + 
+  # shaded rectangles
+  geom_rect(data = alloc_mem_df, 
+            aes(xmin = AllocCPUS - 0.4, 
+                xmax = AllocCPUS + 0.4,
+                ymin = 0, 
+                ymax = AllocMemGB,
+                fill = Type), alpha = 1
+            ) +
+  # usage for each job
+  geom_point(data = nt_jupyter,
+             aes(x = AllocCPUS, 
+                 y = MaxRSS_Utilized_raw_GB, 
+                 color = Type
+                 ), size = 1.5
+             ) + 
+  facet_wrap(~State) + 
+  scale_x_continuous(breaks= seq(1,max_cpu)) + 
+  scale_y_continuous(breaks = 4 * seq(1,max_cpu, by=2)) +
+  scale_fill_manual(values = c("Allocated Memory" = "lightblue")) +
+  scale_color_manual(values = c("Single Job" = "black")) +
+  labs(x = "Allocated CPUs", y = "Memory Utilized (GB)",
+       fill = "", color = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(color = "gray80"),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        legend.position = "right") + 
+  ggtitle(label=label)
+
+savefunc()
+
+```
+
+```{r}
+
+```
+
+```{r CPU pressure, echo=FALSE}
+
+nt_cebigfish %>% filter(State != "FAILED") %>% 
+  ggplot(aes(x=AllocCPUS, y=Elapsed_raw/3600)) + 
+  geom_point() + 
+  facet_wrap(~State) + 
+  scale_x_continuous(breaks= seq(1,12)) + 
+ 
+  ggtitle(label="CEBigfish, Elapsed (wall time) vs CPU, across State")
+
+```
+
+Total compute
+
+```{r pressure, echo=FALSE}
+
+nt_cebigfish %>% filter(State != "FAILED") %>% 
+  ggplot(aes(x=MaxRSS_Utilized_raw/(2^30), y=time2seconds(CPU_Utilized)/60, color=State)) + 
+  geom_point() + 
+  facet_wrap(~factor(AllocCPUS)) + 
+  ggtitle(label="CEBigfish, CPU-utilized vs CPU, across State")
+
+```
+### array jobs
+
+```{r array jobs}
+
+nt_array_jobs = nt %>% filter(grepl("_", JobID))
+nt_array_jobs %<>% separate_wider_delim(JobID, delim = "_", names=c("array_base_id", "array_id")) 
+nt_array_jobs %<>% mutate(
+  
+                          submit_time=to_time_obj(Start), # Start/Submit is swapped erroneously
+                          start_time=to_time_obj(Submit), # Start/Submit is swapped erroneously
+                          wait_time=difftime(start_time, submit_time),
+                          end_time = to_time_obj(End),
+                          timespan = difftime(end_time,submit_time),
+                          core_walltime_seconds = time2seconds(core_walltime)
+                          )
+
+
+summarize_state = function(x) {
+  if (all(x == 'COMPLETED')) {
+    return ("ALL_COMPLETED");
+  }
+  return ("NOT_ALL_COMPLETED");
+  
+}
+
+nt_array_summary <- nt_array_jobs %>% 
+  group_by(array_base_id) %>% 
+  summarize(overall_start = min(start_time), 
+            njobs = n(),
+            overall_end = max(end_time), 
+            overall_wall = difftime(overall_end, overall_start),
+            overall_span = difftime(overall_end, min(submit_time)),
+            state = summarize_state(State),
+            sum_elapsed_raw = sum(Elapsed_raw),
+            average_wait = mean(wait_time),
+            total_CPU_time = sum(time2seconds(CPU_Utilized)),
+            effective_CPU_efficiency = total_CPU_time / (mean(AllocCPUS)*as.integer(overall_wall)),
+            array_speed_up = sum_elapsed_raw /as.integer(overall_wall))
+
+lte_five_min = nt_array_summary$overall_span<300
+lte_five_min_array_ids <- nt_array_summary %>% filter(lte_five_min) %>% pull(array_base_id)
+nt_array_jobs_lte_five <- nt_array_jobs %>% filter(array_base_id %in% lte_five_min_array_ids)
+
+maxtime_array_ids <- function(time) {
+  nt_array_summary %>% filter(overall_span < time) %>% pull(array_base_id)
+}
+
+nt_array_jobs %>% filter(array_base_id %in% maxtime_array_ids(600)) %>%
+  head(n = 100) %>%
+  #filter(array_base_id %in% c("9232034", "12125204", "12110242")) %>% 
+  mutate(array_id_int = as.integer(array_id)) %>% 
+  ggplot(aes(xmin=array_id_int - .4,
+            xmax = array_id_int + .4,
+            ymin = wait_time,
+            ymax = timespan,
+            fill = State)) + geom_rect() +
+  facet_wrap(~array_base_id) +
+  scale_y_continuous(breaks = 60 * seq(1,10)) +
+  scale_x_continuous(breaks = 0:20)
+
+
+
+nt_array_summary %>% filter(state == "ALL_COMPLETED") %>% View()
+
+
+nt_array_jobs_completed <- nt_array_jobs %>% filter(State == "COMPLETED")
+
+```
