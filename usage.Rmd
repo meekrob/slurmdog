@@ -79,7 +79,9 @@ nt %>% filter(grepl("jupyter", JobNames)) -> nt_jupyter
 save_nt_jupyter = nt_jupyter # just temporary to get through edits via chatGPT
 
 table(nt$State)
-table(nt$User)
+userjobs = table(nt$User)
+users_w_enough_data = names(userjobs[userjobs >= 10])
+nt %<>% filter(User %in% users_w_enough_data)
 ```
 
 ## Including Plots
@@ -89,7 +91,7 @@ You can also embed plots, for example:
 ```{r jupyter, echo=FALSE}
 # https://chatgpt.com/share/6824ddbb-f720-8010-a95b-3710a88fd9cf
 
-DO_ONLY_JUPYTER=T
+DO_ONLY_JUPYTER=F
 
 if(DO_ONLY_JUPYTER) # Jupyterlab jobs
 {
@@ -124,11 +126,13 @@ alloc_mem_df <- data.frame(
 if (DO_ONLY_JUPYTER)
 {
   label="Onishlab_users jobs (1 year), Jupyterlab, Memory vs CPU, across State"
+  dotsize = 1
   savefunc <- function() {ggsave("mem_versus_CPU_by_State_jupyter.pdf", width=20)}
 
-}else
+}else # do all
 {
   label="Onishlab_users jobs (1 year), All Jobs, Memory vs CPU, across State"
+  dotsize = 3
   savefunc <- function() {ggsave("mem_versus_CPU_by_State_alljobs.pdf", height=21, width=40)}
 }
 
@@ -146,9 +150,11 @@ ggplot() +
              aes(x = AllocCPUS, 
                  y = MaxRSS_Utilized_raw_GB, 
                  color = Type,
-                 width = .005,
-                 #shape = State
-                 ), size = 2
+                 #width = .005,
+                 
+                 ), 
+             position = position_jitterdodge(jitter.width=.4),
+             size = dotsize
              ) + 
   facet_wrap(~User) + 
   scale_x_continuous(breaks= seq(1,max_cpu)) + 
@@ -172,7 +178,7 @@ ggplot() +
         panel.grid.minor.y = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
-        strip.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
     
         legend.position = "right") + 
   ggtitle(label=label)
@@ -180,22 +186,23 @@ ggplot() +
 savefunc()
 
 ```
+```{r ntask advantage}
+nt_jupyter %>% filter(Elapsed_raw > 0) %>% group_by(State) %>% summarize(ntask_advantage_ave = mean(ntask_advantage))
+
+
+nt_jupyter %>% filter(Elapsed_raw > 0) %>% 
+               mutate(Elapsed_Seconds = Elapsed_raw) %>%
+  ggplot(aes(x = AllocCPUS, y = CPU_Utilized_Seconds/Elapsed_Seconds)) + geom_jitter() + facet_wrap(~User) + ggtitle("Advantage of NTASKS", subtitle = "Higher is better")
+
+# nt_jupyter %>% filter(Elapsed_raw > 0) %>% 
+#   ggplot(aes(x = AllocCPUS, y = CPU_Efficiency)) + geom_jitter() + facet_wrap(~User) + ggtitle("CPU Efficiency", subtitle = "CPU_Utilized / core-walltime")
+```
 
 ```{r}
 
 ```
 
-```{r CPU pressure, echo=FALSE}
 
-nt_cebigfish %>% filter(State != "FAILED") %>% 
-  ggplot(aes(x=AllocCPUS, y=Elapsed_raw/3600)) + 
-  geom_point() + 
-  facet_wrap(~State) + 
-  scale_x_continuous(breaks= seq(1,12)) + 
- 
-  ggtitle(label="CEBigfish, Elapsed (wall time) vs CPU, across State")
-
-```
 
 Total compute
 
