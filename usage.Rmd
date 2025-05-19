@@ -12,11 +12,26 @@ knitr::opts_chunk$set(echo = TRUE)
 library(magrittr)
 library(ggplot2)
 library(lubridate)
+library(dplyr)
 
 #### constants
 GB_PER_CPU = 3.75 # this is an alpine-specific value
 
 #### functions
+seconds_to_timeformat <- function(seconds)
+{    
+    days = as.integer(seconds/(3600*24))
+    seconds_remaining = seconds %% (3600*24)
+    hours = as.integer(seconds_remaining/3600)
+    seconds_remaining = seconds_remaining %% 3600
+    minutes = as.integer(seconds_remaining/60)
+    seconds = as.integer(seconds_remaining %% 60)
+    return(
+      ifelse(days > 0, sprintf("%d-%02d:%02d:%02d", days, hours, minutes, seconds),
+           sprintf("%02d:%02d:%02d", hours, minutes, seconds))
+    )
+}
+    
 to_time_obj = function(str) { # for Submit,Start,End data
   #as.POSIXct(str, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC") 
   ymd_hms(str, tz = "UTC")
@@ -50,12 +65,20 @@ This results from something like:
 Read into `parse_sacct.py` in order to aggregate resource data from various job steps.
 
 ```{r data}
-nt_raw = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
+nt_raw = read.table('allcsu_concat.tsv', header=T, sep="\t")
+#nt_raw = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
 nt = nt_raw
 nt %<>% mutate(
   CPU_Utilized_Seconds = time2seconds(CPU_Utilized),
   allocMemGB = AllocCPUS * GB_PER_CPU,
-  core_walltime_seconds = time2seconds(core_walltime)
+  core_walltime_seconds = time2seconds(core_walltime),
+  submit_time=to_time_obj(Submit), 
+  start_time=to_time_obj(Start), 
+  wait_time=difftime(start_time, submit_time),
+  end_time = to_time_obj(End),
+  timespan = difftime(end_time,submit_time),
+                          
+                          
 )
   
 nt[grepl("CANCELLED by", nt$State), "State"] <- "CANCELLED"
@@ -74,7 +97,7 @@ nt %<>% filter(!grepl("acompile", JobNames))
 nt %<>% filter(Elapsed_raw > 0 | MaxRSS_Utilized_raw > 0 | CPU_Utilized_Seconds > 0)
 
 # subsets
-nt %>% filter(grepl("bigfish", JobNames)) -> nt_cebigfish
+#nt %>% filter(grepl("bigfish", JobNames)) -> nt_cebigfish
 nt %>% filter(grepl("jupyter", JobNames)) -> nt_jupyter
 save_nt_jupyter = nt_jupyter # just temporary to get through edits via chatGPT
 
@@ -82,6 +105,16 @@ table(nt$State)
 userjobs = table(nt$User)
 users_w_enough_data = names(userjobs[userjobs >= 10])
 nt %<>% filter(User %in% users_w_enough_data)
+```
+
+```{r summarize by user}
+user_stats = nt %>% group_by(User) %>% summarize(total_cpu_secs = sum(CPU_Utilized_Seconds),
+                                                 total_mem = sum(MaxRSS_Utilized_raw),
+                                                 num_jobs = n()
+                                                 ) %>%
+                                       mutate(total_cpu = seconds_to_timeformat(total_cpu_secs))
+
+
 ```
 
 ## Including Plots
@@ -114,8 +147,8 @@ print(max_cpu)
 
 # Create a new data frame for the shaded area across full x-range, limit y-range if there will be a lot of empty space
 top_mem_used = max(nt_jupyter$MaxRSS_Utilized_raw_GB)
-visible_ymax = min(top_mem_used*1.1, max_cpu*3.75)
-AllocMemGB = (1:max_cpu) * 3.75
+visible_ymax = min(top_mem_used*1.1, max_cpu*GB_PER_CPU)
+AllocMemGB = (1:max_cpu) * GB_PER_CPU
 alloc_mem_df <- data.frame(
   AllocCPUS = 1:max_cpu,
   AllocMemGB = ifelse(AllocMemGB < visible_ymax, AllocMemGB, visible_ymax), 
@@ -222,9 +255,8 @@ nt_cebigfish %>% filter(State != "FAILED") %>%
 nt_array_jobs = nt %>% filter(grepl("_", JobID))
 nt_array_jobs %<>% separate_wider_delim(JobID, delim = "_", names=c("array_base_id", "array_id")) 
 nt_array_jobs %<>% mutate(
-  
-                          submit_time=to_time_obj(Start), # Start/Submit is swapped erroneously
-                          start_time=to_time_obj(Submit), # Start/Submit is swapped erroneously
+                          submit_time=to_time_obj(Submit), 
+                          start_time=to_time_obj(Start), 
                           wait_time=difftime(start_time, submit_time),
                           end_time = to_time_obj(End),
                           timespan = difftime(end_time,submit_time),
