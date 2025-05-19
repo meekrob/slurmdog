@@ -14,6 +14,13 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     # Find top-level job (no "." in JobID)
     top_level = next((step for step in steps if '.' not in step['JobID']), None)
+    
+    # motivated by edge case which has both:
+    # 1) a single step AND
+    # 2) a '...' at the end of the JobID like jid_[r1-r2,r3-4,...]
+    if len(steps) == 1:
+        top_level = steps[0]
+
 
     if top_level:
         # Take directly from top-level step
@@ -50,6 +57,9 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
                 max_rss = max(max_rss, mem)
         if step.get("JobName"):
             jobnames.append(step["JobName"])
+        if 'REQMEM' not in summary and step.get('REQMEM'):
+            summary["REQMEM"] = step.get("REQMEM")
+            
 
     summary["TotalCPU"] = total_cpu
     summary["Elapsed"] = seconds_to_timeformat(int(elapsed))
