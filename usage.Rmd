@@ -30,6 +30,7 @@ format_size <- function(bytes) {
 seconds_to_timeformat <- function(seconds)
 {   
     orig_names = names(seconds)
+    seconds = as.numeric(seconds)
     days = as.integer(seconds/(3600*24))
     seconds_remaining = seconds %% (3600*24)
     hours = as.integer(seconds_remaining/3600)
@@ -63,7 +64,19 @@ time2seconds_time_lst <- function(time_lst) {
   X = sum(x * coef[1:length(x)])
   X
 }
+# make a cluster and put all of this stuff in it
+library(multidplyr)
+cluster = new_cluster(6)
 
+cluster_library(cluster,c("magrittr","lubridate","dplyr","ggplot2"))
+cluster_assign(cluster,
+               GB_PER_CPU = GB_PER_CPU,
+               format_size = format_size, 
+               seconds_to_timeformat = seconds_to_timeformat, 
+               to_time_obj = to_time_obj, 
+               time2seconds = time2seconds, 
+               time2seconds_time_lst = time2seconds_time_lst)
+cluster_call(cluster, ls())
 ```
 
 ## Data
@@ -78,7 +91,9 @@ Read into `parse_sacct.py` in order to aggregate resource data from various job 
 nt_raw = read.table('allcsu_concat.tsv', header=T, sep="\t")
 #nt_raw = read.table('erinlab_usage/erinlab_usage.tsv', header=T, sep="\t")
 nt = nt_raw
-nt %<>% mutate(
+system.time(
+nt %>% partition(cluster) %>% 
+mutate(
   CPU_Utilized_Seconds = time2seconds(CPU_Utilized),
   allocMemGB = AllocCPUS * GB_PER_CPU,
   core_walltime_seconds = time2seconds(core_walltime),
@@ -87,11 +102,16 @@ nt %<>% mutate(
   wait_time=difftime(start_time, submit_time),
   end_time = to_time_obj(End),
   timespan = difftime(end_time,submit_time),
-                          
-                          
+) -> nt2
 )
-  
-nt[grepl("CANCELLED by", nt$State), "State"] <- "CANCELLED"
+
+# discrep_core_walltime_seconds = which(nt2$core_walltime_seconds != nt$core_walltime_seconds)
+# sum(discrep_core_walltime_seconds)
+# discrep_allocMemGB = which(nt2$allocMemGB != nt$allocMemGB)
+# sum(discrep_allocMemGB)  
+nt = nt2
+
+nt %<>% mutate(State = ifelse(grepl("CANCELLED by", State), "CANCELLED", State))
 
 n_acompile_jobs = nt %>% filter(grepl("acompile", JobNames)) %>% nrow()
 n_zero_runtime_jobs = nt %>% filter(Elapsed_raw == 0) %>% nrow()
@@ -111,21 +131,33 @@ nt %<>% filter(Elapsed_raw > 0 | MaxRSS_Utilized_raw > 0 | CPU_Utilized_Seconds 
 nt %>% filter(grepl("jupyter", JobNames)) -> nt_jupyter
 save_nt_jupyter = nt_jupyter # just temporary to get through edits via chatGPT
 
-table(nt$State)
-userjobs = table(nt$User)
+nt %>% nrow() -> njobs
+nt %>% pull(State) %>% table()
+nt %>% pull(User) %>% table() -> userjobs
 users_w_enough_data = names(userjobs[userjobs >= 10])
+
+cluster_copy(cluster,"users_w_enough_data")
 nt %<>% filter(User %in% users_w_enough_data)
+nt %>% nrow() -> njobs_after_filtering
 ```
 
 ```{r summarize by user}
 user_stats = nt %>% group_by(User) %>% summarize(total_cpu_secs = sum(CPU_Utilized_Seconds),
                                                  total_mem_raw = sum(MaxRSS_Utilized_raw),
+                                                 max_wait_time = max(wait_time),
                                                  num_jobs = n()
                                                  ) %>%
                                        mutate(total_cpu = seconds_to_timeformat(total_cpu_secs),
                                               total_mem = format_size(total_mem_raw))
 
 
+```
+
+```{r}
+```
+
+```{r wait time by user}
+user_stats %>% pull(max_wait_time) %>% range()
 ```
 
 ## Including Plots
