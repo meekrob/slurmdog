@@ -37,7 +37,8 @@ def aggregate_sacct_rows(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
                         "ExitCode",
                         "Submit",
                         "Start",
-                        "End"]:
+                        "End",
+                        "Account"]:
             summary[field] = top_level.get(field)
 
     # Aggregated fields
@@ -201,7 +202,8 @@ def parse_sacct_lines(lines):
             'JobName': fields[13],
             'Submit': fields[14],
             'Start': fields[15],
-            'End': fields[16]
+            'End': fields[16],
+            'Account': fields[17]
         }
             
         jobs.append(job_data)
@@ -353,6 +355,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
             'Submit',
             'Start',
             'End',
+            'Account',
             sep="\t")
         
         return
@@ -377,6 +380,7 @@ def print_seff_output_tsv(efficiencies, job_data, print_header=False):
           efficiencies['Submit'],
           efficiencies['Start'],
           efficiencies['End'],
+          job_data['Account'],
           sep="\t")
 
 def print_seff_output_description(efficiencies, job_data): 
