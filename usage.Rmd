@@ -18,18 +18,28 @@ library(dplyr)
 GB_PER_CPU = 3.75 # this is an alpine-specific value
 
 #### functions
+format_size <- function(bytes) {
+  units = c("B", "KB", "MB", "GB", "TB", "PB")
+  exponent = floor(log2(bytes)/10)
+  divider = 2^(10*exponent)
+  output = sprintf("%.2f %s", bytes/divider, units[1+exponent]) 
+  names(output) <- names(bytes)
+  return(output)
+}
+
 seconds_to_timeformat <- function(seconds)
-{    
+{   
+    orig_names = names(seconds)
     days = as.integer(seconds/(3600*24))
     seconds_remaining = seconds %% (3600*24)
     hours = as.integer(seconds_remaining/3600)
     seconds_remaining = seconds_remaining %% 3600
     minutes = as.integer(seconds_remaining/60)
     seconds = as.integer(seconds_remaining %% 60)
-    return(
-      ifelse(days > 0, sprintf("%d-%02d:%02d:%02d", days, hours, minutes, seconds),
-           sprintf("%02d:%02d:%02d", hours, minutes, seconds))
-    )
+    output = ifelse(days > 0, sprintf("%d-%02d:%02d:%02d", days, hours, minutes, seconds),
+                              sprintf("%02d:%02d:%02d", hours, minutes, seconds))
+    names(output) <- orig_names
+    return(output)
 }
     
 to_time_obj = function(str) { # for Submit,Start,End data
@@ -109,10 +119,11 @@ nt %<>% filter(User %in% users_w_enough_data)
 
 ```{r summarize by user}
 user_stats = nt %>% group_by(User) %>% summarize(total_cpu_secs = sum(CPU_Utilized_Seconds),
-                                                 total_mem = sum(MaxRSS_Utilized_raw),
+                                                 total_mem_raw = sum(MaxRSS_Utilized_raw),
                                                  num_jobs = n()
                                                  ) %>%
-                                       mutate(total_cpu = seconds_to_timeformat(total_cpu_secs))
+                                       mutate(total_cpu = seconds_to_timeformat(total_cpu_secs),
+                                              total_mem = format_size(total_mem_raw))
 
 
 ```
